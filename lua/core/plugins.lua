@@ -24,7 +24,7 @@ local plugins = {
   'bluz71/vim-nightfly-colors',
   'tpope/vim-fugitive',
   'tpope/vim-commentary',
-
+  -- 'nvim-tree/nvim-web-devicons',
   -- completion
   'hrsh7th/nvim-cmp',
   'hrsh7th/cmp-nvim-lsp',
