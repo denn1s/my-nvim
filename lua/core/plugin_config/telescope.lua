@@ -1,4 +1,11 @@
-require('telescope').setup({})
+require('telescope').setup({
+	defaults = {
+	  previewer = true,
+    layout_strategy = 'flex',
+	},
+  preview_cutoff = 1
+})
+
 local builtin = require('telescope.builtin')
 
 vim.keymap.set('n', '<c-p>', builtin.find_files, {})

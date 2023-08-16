@@ -7,7 +7,7 @@ capabilities.offsetEncoding = {'utf-8', 'utf-16'}
 
 local default_keys = {
   close = '<escape>',
-  edit = '<enter>',
+  edit = 'o',
   vsplit = 'h',
   split = 'v'
 }
@@ -18,21 +18,28 @@ require('lspsaga').setup({
   },
   code_action = {
     keys = {
-      quit = '<escape>',
-    },
+      quit = '<escape>'
+    }
   },
   definition = {
-    keys = {
-      close = '<escape>',
-      edit = '<enter>',
-      vsplit = 'h',
-      split = 'v'
-    }
+    keys = default_keys
   },
   finder = {
     default = 'def+ref+imp',
     silent = true,
+    keys = default_keys
+  },
+  floaterm = {  -- this doesnt work
+    keys = default_keys
+  },
+  lightbulb = {
+    virtual_text = false
+  },
+  outline = {
+    layout = 'float',
     keys = {
+      toggle_or_jump = '<enter>',
+      jump = 'o',
       quit = '<escape>',
     }
   },
@@ -48,6 +55,10 @@ vim.keymap.set({"n","v"}, "<leader>p", "<cmd>Lspsaga peek_definition<CR>", { sil
 vim.keymap.set({"n","v"}, "<leader>i", "<cmd>Lspsaga finder<CR>", { silent = true })
 vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set('n', '<leader>e', '<cmd>Lspsaga show_buf_diagnostics<CR>', { silent = true })
+vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', { silent = true })
+
+vim.keymap.set('n', '<leader><enter>', '<cmd>Lspsaga term_toggle<CR>')
+
 
 require("lspconfig").lua_ls.setup {
   capabilities = capabilities,
