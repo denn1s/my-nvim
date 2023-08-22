@@ -1,8 +1,14 @@
+local trouble = require("trouble.providers.telescope")
+
 require('telescope').setup({
 	defaults = {
 	  previewer = true,
     layout_strategy = 'flex',
-	},
+    mappings = {
+      i = { ["<c-t>"] = trouble.open_with_trouble },
+      n = { ["<c-t>"] = trouble.open_with_trouble },
+    },
+  },
   preview_cutoff = 1
 })
 
@@ -26,3 +32,5 @@ vim.keymap.set('n', '<leader>i', '<cmd>Telescope lsp_implementations<cr>', { sil
 
 -- Find symbols
 vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { silent = true })
+
+

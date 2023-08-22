@@ -1,4 +1,5 @@
 local cmp = require("cmp")
+local lspkind = require('lspkind')
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -16,9 +17,21 @@ cmp.setup({
     end,
   },
   sources = cmp.config.sources({
+    { name = 'copilot' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   }, {
+    { name = 'path' },
     { name = 'buffer' },
   }),
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = 'symbol', -- show only symbol annotations
+      maxwidth = 50,
+      ellipsis_char = '...',
+      before = function (entry, vim_item)
+        return vim_item
+      end
+    })
+  }
 })
