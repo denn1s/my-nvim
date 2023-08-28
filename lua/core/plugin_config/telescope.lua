@@ -8,6 +8,12 @@ require('telescope').setup({
       i = { ["<c-t>"] = trouble.open_with_trouble },
       n = { ["<c-t>"] = trouble.open_with_trouble },
     },
+    file_ignore_patterns = {
+      "build",
+      "node_modules",
+      "node%_modules/.*",
+      "build/.*"
+    }
   },
   preview_cutoff = 1
 })

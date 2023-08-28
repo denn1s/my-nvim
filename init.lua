@@ -2,6 +2,7 @@ require("core.options")
 require("core.keymaps")
 require("core.plugins")
 require("custom.keybindings")
+require("custom.autocmds")
 require("core.plugin_config")
 
 local notify = vim.notify

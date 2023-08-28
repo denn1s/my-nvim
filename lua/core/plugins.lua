@@ -13,26 +13,37 @@ vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
   'wbthomason/packer.nvim',
-  'ellisonleao/gruvbox.nvim',
-  'rebelot/kanagawa.nvim',
+  -- 'ellisonleao/gruvbox.nvim',
+  -- 'rebelot/kanagawa.nvim',
   {
     'dracula/vim',
     lazy = false,
   },
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
-  'bluz71/vim-nightfly-colors',
-  'tpope/vim-fugitive',
+  'chrisgrieser/nvim-spider',
+  -- 'bluz71/vim-nightfly-colors',
+  -- 'tpope/vim-fugitive',
   'tpope/vim-commentary',
   -- 'nvim-tree/nvim-web-devicons',
+  {
+    'windwp/nvim-autopairs',
+    event = "InsertEnter",
+  },
   -- completion
-  'hrsh7th/nvim-cmp',
-  'hrsh7th/cmp-nvim-lsp',
-  'hrsh7th/cmp-nvim-lsp-signature-help',
-  'hrsh7th/cmp-calc',
-  -- 'hrsh7th/nvim-dansa',
+  {
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lsp-signature-help',
+      'hrsh7th/cmp-calc',
+      'saadparwaiz1/cmp_luasnip',
+    },
+  },
+  'hrsh7th/nvim-dansa',
   'L3MON4D3/LuaSnip',
-  'saadparwaiz1/cmp_luasnip',
   'onsails/lspkind-nvim',
   "rafamadriz/friendly-snippets",
   -- "github/copilot.vim",
@@ -47,6 +58,20 @@ local plugins = {
 	  'nvim-telescope/telescope.nvim',
 	  tag = '0.1.0',
 	  dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+  -- other utils
+  "AndrewRadev/switch.vim",
+  "Wansmer/treesj",
+  {
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+        'smoka7/hydra.nvim',
+    },
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
   }
 }
 
