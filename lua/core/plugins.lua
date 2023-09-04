@@ -21,7 +21,7 @@ local plugins = {
   },
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
-  'chrisgrieser/nvim-spider',
+  -- 'chrisgrieser/nvim-spider',
   -- 'bluz71/vim-nightfly-colors',
   -- 'tpope/vim-fugitive',
   'tpope/vim-commentary',
