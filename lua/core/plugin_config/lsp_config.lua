@@ -68,6 +68,7 @@ require("lspconfig").lua_ls.setup {
         globals = { "vim" },
       },
       workspace = {
+        checkThirdParty = false,
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
           [vim.fn.stdpath "config" .. "/lua"] = true,
@@ -85,7 +86,18 @@ require("lspconfig").pyright.setup {
   capabilities = capabilities,
 }
 
-require("lspconfig").clangd.setup {
-  capabilities = capabilities,
-}
-
+require("lspconfig").clangd.setup({
+    cmd = {
+        "clangd",
+        "--pretty",
+        "--header-insertion=iwyu",
+        "--background-index",
+        "--suggest-missing-includes",
+        "--query-driver=/path/to/toolchain/bin/",
+        "-j=40",
+        "--pch-storage=memory",
+        "--clang-tidy",
+        "--compile-commands-dir=build",
+    },
+    filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+})

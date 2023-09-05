@@ -43,13 +43,21 @@ local plugins = {
     },
   },
   'hrsh7th/nvim-dansa',
-  'L3MON4D3/LuaSnip',
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+  },
   'onsails/lspkind-nvim',
-  "rafamadriz/friendly-snippets",
-  -- "github/copilot.vim",
   "zbirenbaum/copilot.lua",
-  "zbirenbaum/copilot-cmp",
-  "folke/trouble.nvim",
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  },
   "williamboman/mason.nvim",
   "neovim/nvim-lspconfig",
   "williamboman/mason-lspconfig.nvim",

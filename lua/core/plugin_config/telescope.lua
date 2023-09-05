@@ -1,21 +1,31 @@
-local trouble = require("trouble.providers.telescope")
+-- local trouble = require("trouble.providers.telescope")
 
 require('telescope').setup({
 	defaults = {
 	  previewer = true,
     layout_strategy = 'flex',
-    mappings = {
-      i = { ["<c-t>"] = trouble.open_with_trouble },
-      n = { ["<c-t>"] = trouble.open_with_trouble },
-    },
+    -- mappings = {
+    --   n = { ["<leader>t"] = trouble.open_with_trouble },
+    -- },
     file_ignore_patterns = {
       "build",
       "node_modules",
       "node%_modules/.*",
       "build/.*"
-    }
+    },
+    wrap_results = true,
+    sorting_strategy = "ascending",
+		-- path_display = { "smart" },
   },
-  preview_cutoff = 1
+  preview_cutoff = 1,
+  pickers = {
+    oldfiles = {
+      initial_mode = "normal"
+    },
+    live_grep = {
+      wrap_results = false
+    }
+  }
 })
 
 local builtin = require('telescope.builtin')
@@ -25,7 +35,7 @@ vim.keymap.set('n', '<c-h>', builtin.oldfiles, {})
 vim.keymap.set('n', '<c-s-f>', '<cmd>Telescope current_buffer_fuzzy_find<cr>', {})
 vim.keymap.set('n', '<c-f>', '<cmd>Telescope live_grep<cr>', {})
 vim.keymap.set('n', '<Space><Space>', '<cmd>Telescope buffers<cr>', {})
-vim.keymap.set('n', '<c-r>', '<cmd>Telescope command_history<cr>', {})
+vim.keymap.set('n', '<c-s-r>', '<cmd>Telescope command_history<cr>', {})
 vim.keymap.set('n', '<c-l>', '<cmd>Telescope commands<cr>', {})
 -- Find definitions
 vim.keymap.set('n', '<leader>g', '<cmd>Telescope lsp_definitions<cr>', { silent = true })

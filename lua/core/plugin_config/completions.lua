@@ -27,7 +27,7 @@ lspkind.init({
 })
 vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 
-require("copilot_cmp").setup()
+-- require("copilot_cmp").setup()
 
 cmp.setup({
 	window = {
@@ -48,7 +48,7 @@ cmp.setup({
 		},
 		format = lspkind.cmp_format({
 			with_text = false,
-      max_width = 120,
+			max_width = 120,
 			before = function(entry, vim_item)
 				-- Get the full snippet (and only keep first line)
 				local word = entry:get_insert_text()
@@ -113,30 +113,12 @@ cmp.setup({
   ),
   ['<CR>'] = cmp.mapping.confirm({ select = true }),
 	},
-
-  sorting = {
-    priority_weight = 4,
-    comparators = {
-      cmp.config.compare.offset,
-      cmp.config.compare.exact,
-      cmp.config.compare.score,
-      cmp.config.compare.recently_used,
-      cmp.config.compare.locality,
-      cmp.config.compare.kind,
-      cmp.config.compare.sort_text,
-      cmp.config.compare.length,
-      cmp.config.compare.order,
-      require("copilot_cmp.comparators").prioritize,
-    },
-  },
-
 	-- You should specify your *installed* sources.
 	sources = {
     { name = "calc", max_item_count = 1 },
-		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 4 },
+		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 4, priority = 1000 },
 		{ name = "nvim_lsp_signature_help" },
-		{ name = "copilot", keyword_length = 3, max_item_count = 3 },
-		{ name = "luasnip", keyword_length = 5, max_item_count = 2 },
+		{ name = "luasnip", keyword_length = 2, max_item_count = 4, priority = 500 },
 		{ name = "path", keyword_length = 5, max_item_count = 2 },
 		{ name = "buffer", keyword_length = 5, max_item_count = 3 },
 	},
