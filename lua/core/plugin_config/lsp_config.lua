@@ -99,5 +99,5 @@ require("lspconfig").clangd.setup({
         "--clang-tidy",
         "--compile-commands-dir=build",
     },
-    filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+    filetypes = { "c", "cpp", "h" },
 })

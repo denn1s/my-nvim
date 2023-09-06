@@ -24,7 +24,7 @@ vim.opt.signcolumn = "yes"
 
 -- other
 vim.opt.backspace = {"indent", "eol,start"}
-vim.opt.clipboard = {"unnamed", "unnamedplus"}
+-- vim.opt.clipboard = {"unnamed", "unnamedplus"}
 vim.opt.linebreak = true -- set soft wrapping
 vim.opt.showbreak = "↪ "
 vim.opt.autoindent = true -- automatically set indent of new line

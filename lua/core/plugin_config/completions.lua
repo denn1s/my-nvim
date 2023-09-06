@@ -13,6 +13,7 @@ local has_words_before = function()
 end
 
 local luasnip = require("luasnip")
+require("luasnip.loaders.from_vscode").lazy_load()
 
 luasnip.config.setup({
 	region_check_events = "CursorMoved",
