@@ -45,17 +45,22 @@ local plugins = {
   'hrsh7th/nvim-dansa',
   {
     "L3MON4D3/LuaSnip",
-    dependencies = { "rafamadriz/friendly-snippets" },
+	  version = "v2.*",
+	  build = "make install_jsregexp"
+  },
+  {
+	  "chrisgrieser/nvim-scissors",
+	  opts = {
+		  snippetDir = "/home/dennis/.config/nvim/snippets",
+	  },
   },
   'onsails/lspkind-nvim',
-  "zbirenbaum/copilot.lua",
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     dependencies = {
       "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim"
+      "nvim-lua/plenary.nvim"
     }
   },
   "williamboman/mason.nvim",
@@ -64,8 +69,12 @@ local plugins = {
   "glepnir/lspsaga.nvim",
   {
 	  'nvim-telescope/telescope.nvim',
-	  tag = '0.1.0',
+	  tag = '0.1.4',
 	  dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+  {
+    "dzfrias/arena.nvim",
+    event = "BufWinEnter",
   },
   -- other utils
   "AndrewRadev/switch.vim",

@@ -10,5 +10,5 @@ require('chatgpt').setup({
   },
   actions_paths = {},
   show_quickfixes_cmd = "Telescope quickfix",
-  predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv"
+  predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/denn1s/awesome-chatgpt-prompts/main/prompts.csv"
 })

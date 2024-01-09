@@ -51,7 +51,8 @@ require('lspsaga').setup({
 
 vim.keymap.set('n', 'K', '<Cmd>Lspsaga hover_doc<cr>', { silent = true })
 vim.keymap.set({"n","v"}, "<leader>.", "<cmd>Lspsaga code_action<CR>", { silent = true })
-vim.keymap.set({"n","v"}, "<leader>p", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+vim.keymap.set({"n","v"}, "<leader>P", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
+vim.keymap.set({"n","v"}, "<leader>p", "<cmd>Lspsaga peek_type_definition<CR>", { silent = true })
 vim.keymap.set({"n","v"}, "<leader>i", "<cmd>Lspsaga finder<CR>", { silent = true })
 vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set('n', '<leader>e', '<cmd>Lspsaga show_buf_diagnostics<CR>', { silent = true })

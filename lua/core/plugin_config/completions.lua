@@ -13,12 +13,32 @@ local has_words_before = function()
 end
 
 local luasnip = require("luasnip")
-require("luasnip.loaders.from_vscode").lazy_load()
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { "/home/dennis/.config/nvim/snippets" } })
 
 luasnip.config.setup({
 	region_check_events = "CursorMoved",
 	delete_check_events = "TextChanged",
 })
+
+vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
+vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
+vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
+
+vim.keymap.set({"i"}, "<Tab>", function ()
+	if luasnip.jumpable(1) then
+		luasnip.jump(1)
+	else
+		return "\t"
+	end
+end, {expr = true, noremap = true})
+
+vim.keymap.set({"i"}, "<S-Tab>", function ()
+	if luasnip.jumpable(-1) then
+		luasnip.jump(-1)
+	else
+		return "\t"
+	end
+end, {expr = true, noremap = true})
 
 local lspkind = require("lspkind")
 lspkind.init({
@@ -104,24 +124,23 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-    ["<Tab>"] = vim.schedule_wrap(function(fallback)
-      if cmp.visible() and has_words_before() then
-        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-      else
-        fallback()
-      end
-    end
-  ),
-  ['<CR>'] = cmp.mapping.confirm({ select = true }),
+		["<Tab>"] = vim.schedule_wrap(function(fallback)
+			if cmp.visible() and has_words_before() then
+				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				fallback()
+			end
+		end),
+		['<CR>'] = cmp.mapping.confirm({ select = true }),
 	},
 	-- You should specify your *installed* sources.
 	sources = {
-    { name = "calc", max_item_count = 1 },
+	{ name = "calc", max_item_count = 1 },
 		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 4, priority = 1000 },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "luasnip", keyword_length = 2, max_item_count = 4, priority = 500 },
-		{ name = "path", keyword_length = 5, max_item_count = 2 },
-		{ name = "buffer", keyword_length = 5, max_item_count = 3 },
+		{ name = "path", keyword_length = 5, max_item_count = 2, priority = 300 },
+		{ name = "buffer", keyword_length = 5, max_item_count = 3, priority = 200 },
 	},
 
 	experimental = {
