@@ -1,4 +1,23 @@
-require("mason-lspconfig").setup()
+require("mason").setup()
+require("mason-lspconfig").setup({
+  -- A list of servers to automatically install if they're not already installed
+  ensure_installed = {
+    "tsserver",
+    "eslint",
+    "html",
+    "jsonls",
+    "lua_ls",
+    "clangd"
+  },
+  -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
+  -- This setting has no relation with the `ensure_installed` setting.
+  -- Can either be:
+  --   - false: Servers are not automatically installed.
+  --   - true: All servers set up via lspconfig are automatically installed.
+  --   - { exclude: string[] }: All servers set up via lspconfig, except the ones provided in the list, are automatically installed.
+  --       Example: automatic_installation = { exclude = { "rust_analyzer", "solargraph" } }
+  automatic_installation = true,
+})
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
@@ -60,8 +79,9 @@ vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', { silent = true })
 
 vim.keymap.set('n', '<leader><enter>', '<cmd>Lspsaga term_toggle<CR>')
 
+local lspconfig = require("lspconfig")
 
-require("lspconfig").lua_ls.setup {
+lspconfig.lua_ls.setup {
   capabilities = capabilities,
   settings = {
     Lua = {
@@ -79,15 +99,7 @@ require("lspconfig").lua_ls.setup {
   }
 }
 
-require("lspconfig").solargraph.setup {
-  capabilities = capabilities,
-}
-
-require("lspconfig").pyright.setup {
-  capabilities = capabilities,
-}
-
-require("lspconfig").clangd.setup({
+lspconfig.clangd.setup({
     cmd = {
         "clangd",
         "--pretty",
@@ -102,3 +114,100 @@ require("lspconfig").clangd.setup({
     },
     filetypes = { "c", "cpp", "h" },
 })
+
+lspconfig.cssls.setup({
+  capabilities = capabilities,
+  settings = {
+    css = {
+      lint = {
+        unknownAtRules = 'ignore',
+      },
+    },
+  },
+})
+
+lspconfig.jsonls.setup({
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = {
+        {
+          fileMatch = { "package.json" },
+          url = "https://json.schemastore.org/package.json"
+        },
+        {
+          fileMatch = { "tsconfig*.json" },
+          url = "https://json.schemastore.org/tsconfig.json"
+        },
+        {
+          fileMatch = { ".prettierrc", ".prettierrc.json", "prettier.config.json" },
+          url = "https://json.schemastore.org/prettierrc.json"
+        },
+        {
+          fileMatch = { ".eslintrc", ".eslintrc.json" },
+          url = "https://json.schemastore.org/eslintrc.json"
+        },
+        {
+          fileMatch = { ".babelrc", ".babelrc.json", "babel.config.json" },
+          url = "https://json.schemastore.org/babelrc.json"
+        },
+      }
+    }
+  },
+})
+
+lspconfig.eslint.setup({
+  capabilities = capabilities,
+  settings = {
+    codeAction = {
+      disableRuleComment = {
+        enable = true,
+        location = "separateLine"
+      },
+      showDocumentation = {
+        enable = true
+      }
+    },
+    codeActionOnSave = {
+      enable = false,
+      mode = "all"
+    },
+    format = true,
+    nodePath = "",
+    onIgnoredFiles = "off",
+    packageManager = "npm",
+    quiet = false,
+    rulesCustomizations = {},
+    run = "onType",
+    useESLintClass = false,
+    validate = "on",
+    workingDirectory = {
+      mode = "location"
+    }
+  }
+})
+
+lspconfig.tsserver.setup({
+  capabilities = capabilities,
+  settings = {
+    javascript = {
+      inlayHints = {
+        includeInlayParameterNameHints = "all",
+        includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+        includeInlayFunctionParameterTypeHints = true,
+        includeInlayVariableTypeHints = false,
+        includeInlayPropertyDeclarationTypeHints = true,
+        includeInlayFunctionLikeReturnTypeHints = false,
+        includeInlayEnumMemberValueHints = true,
+      },
+      suggest = {
+        includeCompletionsForModuleExports = true
+      }
+    }
+  }
+})
+
+lspconfig.html.setup({
+  capabilities = capabilities,
+})
+
