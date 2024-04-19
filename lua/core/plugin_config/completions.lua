@@ -20,7 +20,7 @@ luasnip.config.setup({
 	delete_check_events = "TextChanged",
 })
 
-vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
+-- vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
 
@@ -46,7 +46,7 @@ lspkind.init({
     Copilot = "",
   },
 })
-vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+-- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
 
 -- require("copilot_cmp").setup()
 
@@ -135,12 +135,12 @@ cmp.setup({
 	},
 	-- You should specify your *installed* sources.
 	sources = {
-	{ name = "calc", max_item_count = 1 },
-		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 4, priority = 1000 },
+		{ name = "calc", max_item_count = 1, priority = 2000 },
+		{ name = "luasnip", keyword_length = 3, max_item_count = 2, priority = 1500 },
+		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 3, priority = 1000 },
 		{ name = "nvim_lsp_signature_help" },
-		{ name = "luasnip", keyword_length = 2, max_item_count = 4, priority = 500 },
 		{ name = "path", keyword_length = 5, max_item_count = 2, priority = 300 },
-		{ name = "buffer", keyword_length = 5, max_item_count = 3, priority = 200 },
+		-- { name = "buffer", keyword_length = 5, max_item_count = 3, priority = 200 },
 	},
 
 	experimental = {

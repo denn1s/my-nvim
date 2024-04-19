@@ -77,7 +77,7 @@ vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename<CR>", { silent = true })
 vim.keymap.set('n', '<leader>e', '<cmd>Lspsaga show_buf_diagnostics<CR>', { silent = true })
 vim.keymap.set('n', '<leader>o', '<cmd>Lspsaga outline<CR>', { silent = true })
 
-vim.keymap.set('n', '<leader><enter>', '<cmd>Lspsaga term_toggle<CR>')
+-- vim.keymap.set('n', '<leader><enter>', '<cmd>Lspsaga term_toggle<CR>')
 
 local lspconfig = require("lspconfig")
 

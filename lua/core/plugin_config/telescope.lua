@@ -47,7 +47,7 @@ vim.keymap.set('n', '<leader>r', '<cmd>Telescope lsp_references<cr>', { silent =
 vim.keymap.set('n', '<leader>i', '<cmd>Telescope lsp_implementations<cr>', { silent = true })
 
 -- Find symbols
-vim.keymap.set('n', '<leader>s', '<cmd>Telescope lsp_document_symbols<cr>', { silent = true })
+vim.keymap.set('n', '<leader>S', '<cmd>Telescope lsp_document_symbols<cr>', { silent = true })
 
 local arena = require('arena')
 arena.setup({

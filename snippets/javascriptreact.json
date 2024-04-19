@@ -1,0 +1,1 @@
+{"rum (addAction)":{"prefix":"rum (addAction)","body":"datadogRum.addAction('$0')"},"clg":{"body":"console.log(\"$1\", $1)","prefix":"clg"},"useState (Decl)":{"prefix":"useState (Decl)","body":"const [$0, set$0] = useState()"},"console log":{"body":"console.log(\"$1\", $1)","prefix":"console log"},"trackEvent":{"body":"trackEvent('$1')","prefix":"trackEvent"}}

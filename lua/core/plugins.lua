@@ -12,7 +12,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  'wbthomason/packer.nvim',
+  -- 'wbthomason/packer.nvim',
   -- 'ellisonleao/gruvbox.nvim',
   -- 'rebelot/kanagawa.nvim',
   {
@@ -21,7 +21,7 @@ local plugins = {
   },
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
-  -- 'chrisgrieser/nvim-spider',
+  'chrisgrieser/nvim-spider',
   -- 'bluz71/vim-nightfly-colors',
   -- 'tpope/vim-fugitive',
   'tpope/vim-commentary',
@@ -55,15 +55,15 @@ local plugins = {
 	  },
   },
   'onsails/lspkind-nvim',
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim"
-    }
-  },
-  "williamboman/mason.nvim",
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim"
+  --   }
+  -- },
+  -- "williamboman/mason.nvim",
   "neovim/nvim-lspconfig",
   "williamboman/mason-lspconfig.nvim",
   "glepnir/lspsaga.nvim",
@@ -79,13 +79,13 @@ local plugins = {
   -- other utils
   "AndrewRadev/switch.vim",
   "Wansmer/treesj",
-  {
-    "smoka7/multicursors.nvim",
-    event = "VeryLazy",
-    dependencies = {
-        'smoka7/hydra.nvim',
-    },
-  },
+  -- {
+  --   "smoka7/multicursors.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --       'smoka7/hydra.nvim',
+  --   },
+  -- },
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
