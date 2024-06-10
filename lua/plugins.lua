@@ -12,25 +12,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- 'wbthomason/packer.nvim',
-  -- 'ellisonleao/gruvbox.nvim',
-  -- 'rebelot/kanagawa.nvim',
+  -- {
+  --  'dracula/vim',
+  --  lazy = false,
+  -- },
   {
-    'dracula/vim',
-    lazy = false,
+    'projekt0n/github-nvim-theme',
+    lazy = false, 
   },
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
-  'chrisgrieser/nvim-spider',
-  -- 'bluz71/vim-nightfly-colors',
-  -- 'tpope/vim-fugitive',
+  -- { "chrisgrieser/nvim-spider", lazy = true },
   'tpope/vim-commentary',
-  -- 'nvim-tree/nvim-web-devicons',
   {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
   },
-  -- completion
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -54,18 +51,12 @@ local plugins = {
 		  snippetDir = "/home/dennis/.config/nvim/snippets",
 	  },
   },
-  'onsails/lspkind-nvim',
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim"
-  --   }
-  -- },
-  -- "williamboman/mason.nvim",
+  {
+    "williamboman/mason.nvim",
+    dependencies = { { "williamboman/mason-lspconfig.nvim" } }
+  },
   "neovim/nvim-lspconfig",
-  "williamboman/mason-lspconfig.nvim",
+  'onsails/lspkind-nvim',
   "glepnir/lspsaga.nvim",
   {
 	  'nvim-telescope/telescope.nvim',
@@ -76,16 +67,8 @@ local plugins = {
     "dzfrias/arena.nvim",
     event = "BufWinEnter",
   },
-  -- other utils
   "AndrewRadev/switch.vim",
   "Wansmer/treesj",
-  -- {
-  --   "smoka7/multicursors.nvim",
-  --   event = "VeryLazy",
-  --   dependencies = {
-  --       'smoka7/hydra.nvim',
-  --   },
-  -- },
   {
     "kylechui/nvim-surround",
     event = "VeryLazy",
@@ -95,3 +78,4 @@ local plugins = {
 local opts = {}
 
 require("lazy").setup(plugins, opts)
+

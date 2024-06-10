@@ -7,7 +7,8 @@ require("mason-lspconfig").setup({
     "html",
     "jsonls",
     "lua_ls",
-    "clangd"
+    "clangd",
+    "rust_analyzer"
   },
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -210,4 +211,15 @@ lspconfig.tsserver.setup({
 lspconfig.html.setup({
   capabilities = capabilities,
 })
+
+lspconfig.rust_analyzer.setup{
+  capabilities = capabilities,
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
 

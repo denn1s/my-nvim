@@ -32,3 +32,7 @@ vim.opt.ttyfast = true -- faster redrawing
 vim.opt.scrolloff = 10
 vim.opt.wildmenu = true -- enhanced command line completion
 vim.opt.smartindent = true
+
+-- nerdtree
+vim.g.NERDTreeMinimalUI = 1
+vim.g.NERDTreeStatusline = '%#NonText#'

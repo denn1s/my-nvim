@@ -132,11 +132,12 @@ cmp.setup({
 			end
 		end),
 		['<CR>'] = cmp.mapping.confirm({ select = true }),
+		['<C-s>'] = cmp.mapping.confirm({ select = true }),
 	},
 	-- You should specify your *installed* sources.
 	sources = {
 		{ name = "calc", max_item_count = 1, priority = 2000 },
-		{ name = "luasnip", keyword_length = 3, max_item_count = 2, priority = 1500 },
+		{ name = "luasnip", keyword_length = 2, max_item_count = 2, priority = 1500 },
 		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 3, priority = 1000 },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "path", keyword_length = 5, max_item_count = 2, priority = 300 },
