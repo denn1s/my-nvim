@@ -1,0 +1,1 @@
+{"print":{"prefix":"print","body":"std::print(\"$0: {}\\n\", $0);"},"cout":{"prefix":"cout","body":"std::cout << \"$0: \" << $0 << std::endl;"}}

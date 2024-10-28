@@ -18,7 +18,7 @@ local plugins = {
   -- },
   {
     'projekt0n/github-nvim-theme',
-    lazy = false, 
+    lazy = false,
   },
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
@@ -28,6 +28,7 @@ local plugins = {
     'windwp/nvim-autopairs',
     event = "InsertEnter",
   },
+  'onsails/lspkind.nvim',
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -42,36 +43,38 @@ local plugins = {
   'hrsh7th/nvim-dansa',
   {
     "L3MON4D3/LuaSnip",
-	  version = "v2.*",
-	  build = "make install_jsregexp"
+    version = "v2.*",
+    build = "make install_jsregexp"
   },
   {
-	  "chrisgrieser/nvim-scissors",
-	  opts = {
-		  snippetDir = "/home/dennis/.config/nvim/snippets",
-	  },
+    "chrisgrieser/nvim-scissors",
+    opts = {
+      snippetDir = "/home/dennis/.config/nvim/snippets",
+    },
   },
   {
     "williamboman/mason.nvim",
     dependencies = { { "williamboman/mason-lspconfig.nvim" } }
   },
   "neovim/nvim-lspconfig",
-  'onsails/lspkind-nvim',
   "glepnir/lspsaga.nvim",
   {
-	  'nvim-telescope/telescope.nvim',
-	  tag = '0.1.4',
-	  dependencies = { {'nvim-lua/plenary.nvim'} }
+    'nvim-telescope/telescope.nvim', tag = '0.1.8',
+    dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
     "dzfrias/arena.nvim",
     event = "BufWinEnter",
   },
-  "AndrewRadev/switch.vim",
   "Wansmer/treesj",
   {
-    "kylechui/nvim-surround",
+    "folke/flash.nvim",
     event = "VeryLazy",
+  },
+  {
+    "chrisgrieser/nvim-rip-substitute",
+	  cmd = "RipSubstitute",
+    event = "VeryLazy"
   }
 }
 

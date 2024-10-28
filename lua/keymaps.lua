@@ -1,5 +1,6 @@
 -- Clear search highlights
 vim.keymap.set('n', '<leader>h', ':nohlsearch<CR>', { desc = 'Clear search highlights' })
+vim.keymap.set('n', '<esc>', ':nohlsearch<CR>', { desc = 'Clear search highlights', silent = true })
 
 -- Indent/Unindent in normal and visual modes
 vim.keymap.set('n', '<Tab>', '>>', { noremap = true, desc = 'Indent line' })
@@ -7,19 +8,22 @@ vim.keymap.set('n', '<S-Tab>', '<<', { noremap = true, desc = 'Unindent line' })
 vim.keymap.set('x', '<Tab>', '>gv', { noremap = true, desc = 'Indent selected lines' })
 vim.keymap.set('x', '<S-Tab>', '<gv', { noremap = true, desc = 'Unindent selected lines' })
 vim.keymap.set('i', '<S-Tab>', '<C-D>', { noremap = true, desc = 'Unindent in insert mode' })
-vim.keymap.set('n', '<leader>=', 'gg=G', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>=', 'gg=G<c-o><cr>', { noremap = true, silent = true })
 
 -- Switch between two files
 vim.keymap.set('n', '<leader>c', '<cmd>Switch<CR>', { desc = 'Switch between two files' })
+vim.keymap.set('n', '<leader>l', 'ggdG', { noremap = true, desc = 'Clear the entire file' })
 
 -- Focus NERDTree
-vim.keymap.set('n', 't', ':NERDTreeFocus<CR>', { noremap = true, silent = true, desc = 'Focus NERDTree' })
+-- vim.keymap.set('n', 't', ':NERDTreeFocus<CR>', { noremap = true, silent = true, desc = 'Focus NERDTree' })
+vim.keymap.set('n', '<C-f>', ':first<CR>', { noremap = true, silent = true, desc = 'Focus NERDTree' })
+vim.keymap.set('n', '<C-Tab>', ':first<CR>', { noremap = true, silent = true, desc = 'Focus NERDTree' })
 
 -- Copy to system clipboard
 vim.keymap.set('n', 'y', '"+y', { noremap = true, desc = 'Copy to system clipboard' })
 vim.keymap.set('v', 'y', '"+y', { noremap = true, desc = 'Copy to system clipboard' })
-
 -- Move between functions
+
 vim.keymap.set('n', '<C-S-Up>', '[m', { noremap = true, desc = 'Move to previous function' })
 vim.keymap.set('n', '<C-S-Down>', ']m', { noremap = true, desc = 'Move to next function' })
 vim.keymap.set('n', '<C-Up>', '{', { noremap = true, desc = 'Move to previous paragraph' })
@@ -52,8 +56,8 @@ vim.keymap.set('v', '<A-Up>', ":m '<-2<CR>gv=gv", { noremap = true, silent = tru
 vim.keymap.set('v', '<A-Down>', ":m '>+1<CR>gv=gv", { noremap = true, silent = true })
 
 -- Open new line without entering insert
-vim.keymap.set('n', '<A-o>', 'o<Esc>k', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-S-o>', 'O<Esc>j', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-o>', 'o<Esc>', { noremap = true, silent = true })
+vim.keymap.set('n', '<A-S-o>', 'O<Esc>', { noremap = true, silent = true })
 
 -- Duplicate line
 vim.keymap.set('n', '<C-d>', ':t.<CR>', { desc = 'Duplicate line' })

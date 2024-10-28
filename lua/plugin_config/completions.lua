@@ -7,9 +7,9 @@ local t = function(s)
 end
 
 local has_words_before = function()
-  if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
+	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
 end
 
 local luasnip = require("luasnip")
@@ -41,53 +41,53 @@ vim.keymap.set({"i"}, "<S-Tab>", function ()
 end, {expr = true, noremap = true})
 
 local lspkind = require("lspkind")
-lspkind.init({
-  symbol_map = {
-    Copilot = "",
-  },
-})
--- vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
-
--- require("copilot_cmp").setup()
 
 cmp.setup({
 	window = {
-    completion = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      scrollbar = "║"
-    },
-    documentation = {
-      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-      scrollbar = "║",
-    },
-  },
+		completion = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			scrollbar = "║"
+		},
+		documentation = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			scrollbar = "║",
+		},
+	},
 	formatting = {
 		fields = {
 			cmp.ItemField.Kind,
 			cmp.ItemField.Abbr,
-			cmp.ItemField.Menu,
+			-- cmp.ItemField.Menu,
 		},
+		--[[
 		format = lspkind.cmp_format({
-			with_text = false,
-			max_width = 120,
-			before = function(entry, vim_item)
-				-- Get the full snippet (and only keep first line)
-				local word = entry:get_insert_text()
-				if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
-					word = vim.lsp.util.parse_snippet(word)
+			mode = 'symbol',
+			maxwidth = 100,
+			ellipsis_char = '...',
+			show_labelDetails = true,
+			before = function (entry, item)
+				local menu_icon = {
+					nvim_lsp = "NLSP",
+					nvim_lua = "NLUA",
+					luasnip  = "LSNP",
+					buffer   = "BUFF",
+					path     = "PATH",
+				}
+				item.menu = menu_icon[entry.source.name]
+				local fixed_width = 200
+				local content = item.abbr
+				if fixed_width then
+					vim.o.pumwidth = fixed_width
 				end
-				word = str.oneline(word)
-				if
-					entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
-					and string.sub(vim_item.abbr, -1, -1) == "~"
-				then
-					word = word .. "~"
+				if #content > fixed_width then
+					item.abbr = vim.fn.strcharpart(content, 0, fixed_width - 3)
+				else
+					item.abbr = content .. (" "):rep(fixed_width - #content)
 				end
-				vim_item.abbr = word
-
-				return vim_item
-			end,
-		}),
+				return item
+			end
+		})
+		--]]
 	},
 	snippet = {
 		expand = function(args)
@@ -110,9 +110,9 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
+			end, {
+				"i",
+				"s",
 		}),
 		["<C-Left>"] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
@@ -120,9 +120,9 @@ cmp.setup({
 			else
 				fallback()
 			end
-		end, {
-			"i",
-			"s",
+			end, {
+				"i",
+				"s",
 		}),
 		["<Tab>"] = vim.schedule_wrap(function(fallback)
 			if cmp.visible() and has_words_before() then
