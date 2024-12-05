@@ -8,7 +8,8 @@ require("mason-lspconfig").setup({
     "jsonls",
     "lua_ls",
     "clangd",
-    "rust_analyzer"
+    "rust_analyzer",
+    "gopls"
   },
   -- Whether servers that are set up (via lspconfig) should be automatically installed if they're not already installed.
   -- This setting has no relation with the `ensure_installed` setting.
@@ -223,3 +224,60 @@ lspconfig.rust_analyzer.setup{
   }
 }
 
+
+lspconfig.gopls.setup({
+  capabilities = capabilities,
+  settings = {
+    gopls = {
+      -- Uses gofumpt formatting
+      gofumpt = true,
+      analyses = {
+        unusedparams = true,
+        shadow = true,
+        fieldalignment = true,
+        nilness = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      -- Automatically import packages
+      importShortcut = "Definition",
+      -- Show inlay hints (parameter names, type info)
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+      -- Enable code lenses for references/implementations
+      codelenses = {
+        generate = true,
+        gc_details = true,
+        regenerate_cgo = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
+      -- Enable staticcheck for additional static analysis
+      staticcheck = true,
+      -- Enable verbose matcher for better fuzzy matching
+      matcher = "Fuzzy",
+      -- Experimental features
+      experimentalPostfixCompletions = true,
+      -- Additional diagnostics
+      diagnosticsDelay = "500ms",
+      symbolMatcher = "fuzzy",
+      completeUnimported = true,
+      -- Build settings
+      buildFlags = {"-tags=integration"},
+      env = {
+        GOFLAGS = "-tags=integration"
+      },
+    },
+  },
+  flags = {
+    debounce_text_changes = 150,
+  },
+})

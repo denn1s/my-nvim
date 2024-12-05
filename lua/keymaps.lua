@@ -11,7 +11,6 @@ vim.keymap.set('i', '<S-Tab>', '<C-D>', { noremap = true, desc = 'Unindent in in
 vim.keymap.set('n', '<leader>=', 'gg=G<c-o><cr>', { noremap = true, silent = true })
 
 -- Switch between two files
-vim.keymap.set('n', '<leader>c', '<cmd>Switch<CR>', { desc = 'Switch between two files' })
 vim.keymap.set('n', '<leader>l', 'ggdG', { noremap = true, desc = 'Clear the entire file' })
 
 -- Focus NERDTree

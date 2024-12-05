@@ -75,7 +75,13 @@ local plugins = {
     "chrisgrieser/nvim-rip-substitute",
 	  cmd = "RipSubstitute",
     event = "VeryLazy"
-  }
+  },
+  -- go support
+  {
+    "fatih/vim-go",
+    ft = "go",
+    build = ":GoUpdateBinaries",
+  },
 }
 
 local opts = {}
