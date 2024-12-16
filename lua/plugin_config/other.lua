@@ -3,50 +3,56 @@ local tsj = require('treesj')
 local langs = require('treesj.langs')
 
 tsj.setup({
-  use_default_keymaps = false,
-  check_syntax_error = false,
-  max_join_length = 120,
-  cursor_behavior = 'hold',
-  notify = true,
-  dot_repeat = true,
-  on_error = nil,
-  langs = langs.presets,
+	use_default_keymaps = false,
+	check_syntax_error = false,
+	max_join_length = 120,
+	cursor_behavior = 'hold',
+	notify = true,
+	dot_repeat = true,
+	on_error = nil,
+	langs = langs.presets,
 })
 
 vim.keymap.set('n', '<leader>b', tsj.toggle)
 vim.keymap.set('n', '<leader>B', function()
-  tsj.toggle({ split = { recursive = true } })
+	tsj.toggle({ split = { recursive = true } })
 end)
 
 
 local flash = require("flash")
 flash.setup({
-  labels = "123456789",
-  modes = {
-    char = {
-      enabled = true,
-      highlight = { backdrop = true },
-      autohide = true,
-      jump = { register = true },
-    },
-    search = {
-      enabled = true,
-    }
-  }
+	labels = "123456789",
+	search = {
+		multi_window = false,
+		wrap = false,
+	},
+	modes = {
+		char = {
+			enabled = true,
+			autohide = true,
+			highlight = { backdrop = false },
+			jump = { autojump = true, register = true },
+			multi_line = false,
+			nohlsearch = true,
+		},
+		search = {
+			enabled = true,
+		}
+	},
+	jump = {
+		nohlsearch = true,
+		register = true,
+	}
 })
 
-vim.keymap.set("n", "s", function()
-  flash.jump({search = { forward = true, wrap = false, multi_window = false }})
-end, { desc = "Flash" } )
-vim.keymap.set("n", "S", function()
-  flash.jump({search = { forward = false, wrap = false, multi_window = false }})
-end, { desc = "Flash backwards" } )
+vim.keymap.set("n", "s", function() flash.jump() end, { desc = "Flash" } )
+vim.keymap.set("n", "S", function() flash.jump({ search = { forward = false } }) end, { desc = "Flash Backwards" })
+
 vim.keymap.set("o", "r", function() flash.remote() end, { desc = "Remote Flash" })
+vim.keymap.set("o", "R", function() flash.remote({ search = { forward = false } }) end, { desc = "Remote Flash Backwards" })
 
--- vim.keymap.set("o", "R", function() flash.treesitter_search() end, { desc = "Treesitter Search" })
--- vim.keymap.set("c",  "<c-s>", function() flash.toggle() end, { desc = "Toggle Flash Search" })
-
-
+vim.keymap.set("o", "s", function() flash.treesitter_search() end, { desc = "Treesitter-based selection" })
+vim.keymap.set("o", "S", function() flash.treesitter_search({ search = { forward = false } }) end, { desc = "Treesitter-based selection Backwards" })
 
 local sub = require("rip-substitute")
 sub.setup {
@@ -77,7 +83,7 @@ sub.setup {
 }
 
 vim.keymap.set({"n"}, "<c-r>", function()
-  sub.sub()
+	sub.sub()
 end, { desc = "Rip Substitute" } )
 
 vim.keymap.set({"x"}, "<c-r>", ":RipSubstitute<cr>", { desc = "Rip Substitute Range" })
