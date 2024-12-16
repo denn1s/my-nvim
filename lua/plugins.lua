@@ -12,25 +12,50 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
-  -- {
-  --  'dracula/vim',
-  --  lazy = false,
-  -- },
+  -- Theme and UI
   {
-    'projekt0n/github-nvim-theme',
+    'projekt0n/github-nvim-theme', -- GitHub's theme for Neovim
     lazy = false,
   },
-  'nvim-lualine/lualine.nvim',
-  'nvim-treesitter/nvim-treesitter',
-  -- { "chrisgrieser/nvim-spider", lazy = true },
-  'tpope/vim-commentary',
+  'nvim-lualine/lualine.nvim', -- Statusline plugin for enhanced UI
+
+  -- Syntax and Language Support
+  'nvim-treesitter/nvim-treesitter', -- Better syntax highlighting and code understanding
   {
-    'windwp/nvim-autopairs',
+    "fatih/vim-go", -- Comprehensive Go development plugin
+    ft = "go",
+    build = ":GoUpdateBinaries",
+  },
+
+  -- Editor Enhancement
+  'tpope/vim-commentary', -- Easy code commenting
+  {
+    'windwp/nvim-autopairs', -- Automatic bracket pairing
     event = "InsertEnter",
   },
-  'onsails/lspkind.nvim',
+  "Wansmer/treesj", -- Smart code block splitting and joining
   {
-    "hrsh7th/nvim-cmp",
+    "folke/flash.nvim", -- Enhanced navigation and search
+    event = "VeryLazy",
+  },
+  {
+    "chrisgrieser/nvim-rip-substitute", -- Better search and replace
+    cmd = "RipSubstitute",
+    event = "VeryLazy"
+  },
+
+  -- LSP (Language Server Protocol) Support
+  {
+    "williamboman/mason.nvim", -- LSP package manager
+    dependencies = { { "williamboman/mason-lspconfig.nvim" } }
+  },
+  "neovim/nvim-lspconfig", -- LSP configuration
+  "glepnir/lspsaga.nvim", -- Enhanced LSP UI
+  'onsails/lspkind.nvim', -- VSCode-like pictograms for LSP
+
+  -- Completion and Snippets
+  {
+    "hrsh7th/nvim-cmp", -- Completion engine
     event = "InsertEnter",
     dependencies = {
       'hrsh7th/nvim-cmp',
@@ -40,51 +65,31 @@ local plugins = {
       'saadparwaiz1/cmp_luasnip',
     },
   },
-  'hrsh7th/nvim-dansa',
+  'hrsh7th/nvim-dansa', -- Smart indentation detection
   {
-    "L3MON4D3/LuaSnip",
+    "L3MON4D3/LuaSnip", -- Snippet engine
     version = "v2.*",
     build = "make install_jsregexp"
   },
   {
-    "chrisgrieser/nvim-scissors",
+    "chrisgrieser/nvim-scissors", -- Snippet management
     opts = {
       snippetDir = "/home/dennis/.config/nvim/snippets",
     },
   },
+
+  -- Fuzzy Finding and Navigation
   {
-    "williamboman/mason.nvim",
-    dependencies = { { "williamboman/mason-lspconfig.nvim" } }
-  },
-  "neovim/nvim-lspconfig",
-  "glepnir/lspsaga.nvim",
-  {
-    'nvim-telescope/telescope.nvim', tag = '0.1.8',
+    'nvim-telescope/telescope.nvim', -- Fuzzy finder and picker
+    tag = '0.1.8',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
-    "dzfrias/arena.nvim",
+    "dzfrias/arena.nvim", -- Buffer management
     event = "BufWinEnter",
-  },
-  "Wansmer/treesj",
-  {
-    "folke/flash.nvim",
-    event = "VeryLazy",
-  },
-  {
-    "chrisgrieser/nvim-rip-substitute",
-	  cmd = "RipSubstitute",
-    event = "VeryLazy"
-  },
-  -- go support
-  {
-    "fatih/vim-go",
-    ft = "go",
-    build = ":GoUpdateBinaries",
   },
 }
 
 local opts = {}
 
 require("lazy").setup(plugins, opts)
-

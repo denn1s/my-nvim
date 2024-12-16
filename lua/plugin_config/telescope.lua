@@ -38,13 +38,13 @@ vim.keymap.set('n', '<c-g>', '<cmd>Telescope live_grep<cr>', {})
 vim.keymap.set('n', '<c-s-r>', '<cmd>Telescope command_history<cr>', {})
 vim.keymap.set('n', '<c-l>', '<cmd>Telescope commands<cr>', {})
 -- Find definitions
-vim.keymap.set('n', '<c-j>', '<cmd>Telescope lsp_definitions<cr>', { silent = true })
+-- vim.keymap.set('n', '<c-j>', '<cmd>Telescope lsp_definitions<cr>', { silent = true })
 
 -- Find references
-vim.keymap.set('n', '<c-r>', '<cmd>Telescope lsp_references<cr>', { silent = true })
+-- vim.keymap.set('n', '<c-r>', '<cmd>Telescope lsp_references<cr>', { silent = true })
 
 -- Find implementations
-vim.keymap.set('n', '<c-i>', '<cmd>Telescope lsp_implementations<cr>', { silent = true })
+-- vim.keymap.set('n', '<c-i>', '<cmd>Telescope lsp_implementations<cr>', { silent = true })
 
 -- Find symbols
 vim.keymap.set('n', '<c-a>', '<cmd>Telescope lsp_document_symbols<cr>', { silent = true })
