@@ -21,7 +21,7 @@ luasnip.config.setup({
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
 
-vim.keymap.set({"i"}, "<Tab>", function ()
+vim.keymap.set({"i", "s"}, "<C-n>", function ()
 	if luasnip.jumpable(1) then
 		luasnip.jump(1)
 	else
@@ -29,7 +29,7 @@ vim.keymap.set({"i"}, "<Tab>", function ()
 	end
 end, {expr = true, noremap = true})
 
-vim.keymap.set({"i"}, "<S-Tab>", function ()
+vim.keymap.set({"i", "s"}, "<C-N>", function ()
 	if luasnip.jumpable(-1) then
 		luasnip.jump(-1)
 	else
@@ -38,6 +38,7 @@ vim.keymap.set({"i"}, "<S-Tab>", function ()
 end, {expr = true, noremap = true})
 
 cmp.setup({
+	preselect = cmp.PreselectMode.None,
 	window = {
 		completion = {
 			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -75,9 +76,9 @@ cmp.setup({
 				fallback()
 			end
 		end, {
-			"i",
-			"s",
-		}),
+				"i",
+				"s",
+			}),
 		["<C-Left>"] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
@@ -85,9 +86,9 @@ cmp.setup({
 				fallback()
 			end
 		end, {
-			"i",
-			"s",
-		}),
+				"i",
+				"s",
+			}),
 		["<Tab>"] = vim.schedule_wrap(function(fallback)
 			if cmp.visible() and has_words_before() then
 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
@@ -95,15 +96,13 @@ cmp.setup({
 				fallback()
 			end
 		end),
-		['<CR>'] = cmp.mapping({
-			i = function(fallback)
-				if cmp.visible() and cmp.get_active_entry() then
-					cmp.confirm({ select = false })
-				else
-					fallback()
-				end
+		['<CR>'] = cmp.mapping(function(fallback)
+			if cmp.visible() and cmp.get_active_entry() then
+				cmp.confirm({ select = false })
+			else
+				fallback()
 			end
-		}),
+		end, { "i", "s" }),
 		['<C-s>'] = cmp.mapping.confirm({ select = true }),
 	},
 	sources = {

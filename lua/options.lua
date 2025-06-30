@@ -34,6 +34,10 @@ vim.opt.scrolloff = 10
 vim.opt.wildmenu = true -- enhanced command line completion
 vim.opt.smartindent = true
 
+-- make folds by indentation
+vim.o.foldmethod = "indent"
+vim.o.foldlevel = 99
+
 -- nerdtree
 vim.g.NERDTreeMinimalUI = 1
 vim.g.NERDTreeStatusline = '%#NonText#'

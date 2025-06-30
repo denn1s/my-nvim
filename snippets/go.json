@@ -1,0 +1,1 @@
+{"package (main)":{"body":["package main","","import (","  \"fmt\"",")","","func main() {","  fmt.Println(\"Hello World\")","}"],"prefix":"package (main)"},"func (full)":{"body":["func $1 ($2) {","  $0","}"],"prefix":"func (full)"}}

@@ -1,1 +1,1 @@
-{}
+{"func (arr -> obj)":{"prefix":"func (arr -> obj)","body":"() => ({ $0 })"},"function (return)":{"prefix":"function (return)","body":["function $1($2) {","  $0","  return","}"]},"func (arr)":{"body":["($1) => {","  $0","}"],"prefix":"func (arr)"},"export (const object)":{"body":["const $0 = {","","}","","export default $0"],"prefix":"export (const object)"},"console log":{"body":"console.log(\"$0\", $0)","prefix":"console log"}}
