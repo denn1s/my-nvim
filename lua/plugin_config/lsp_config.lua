@@ -1,7 +1,7 @@
 require("mason").setup()
 require("mason-lspconfig").setup({
   ensure_installed = {
-    "tsserver",
+    "ts_ls",
     "eslint",
     "html",
     "jsonls",
@@ -106,19 +106,22 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.clangd.setup({
+  capabilities = capabilities,
   cmd = {
     "clangd",
-    "--pretty",
-    "--header-insertion=iwyu",
     "--background-index",
-    "--suggest-missing-includes",
-    "--query-driver=/path/to/toolchain/bin/",
-    "-j=40",
-    "--pch-storage=memory",
     "--clang-tidy",
+    "--header-insertion=iwyu",
+    "--suggest-missing-includes",
     "--compile-commands-dir=build",
+    "--all-scopes-completion",
+    "--completion-style=detailed",
+    "--cross-file-rename",
+    "--pch-storage=memory",
+    "-j=8",
   },
-  filetypes = { "c", "cpp", "h" },
+  filetypes = { "c", "cpp", "h", "objc", "objcpp" },
+  root_dir = require("lspconfig.util").root_pattern("compile_commands.json", ".git"),
 })
 
 lspconfig.cssls.setup({
@@ -193,7 +196,7 @@ lspconfig.eslint.setup({
   },
 })
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   capabilities = capabilities,
   settings = {
     javascript = {

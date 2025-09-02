@@ -84,10 +84,10 @@ arena.setup({
         arena.close()
       end,
       ["x"] = {
-        arena.action(function(bufnr)
+        function(bufnr)
           vim.cmd("echo \"delete from the arena: ".. bufnr .."\"")
           arena.remove()
-        end),
+        end,
         {
           nowait = true
         }
