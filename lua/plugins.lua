@@ -85,6 +85,12 @@ local plugins = {
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   {
+    "tomasky/bookmarks.nvim",
+    event = "BufReadPost",
+  },
+
+  -- Buffer management
+  {
     "dzfrias/arena.nvim", -- Buffer management
     event = "BufWinEnter",
   },

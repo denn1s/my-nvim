@@ -25,8 +25,26 @@ require('telescope').setup({
     live_grep = {
       wrap_results = false
     }
+  },
+  extensions = {
+    bookmarks = {
+      -- Available tables:
+      --   `actions` (table): allows you to override the default actions (prepare_send_to_qflist, open_in_trouble, set_previewer_str, etc)
+      --   `debug` (boolean): prints debug messages if set to true
+      --   `preview_file_path` (boolean): If true, previews the file instead of the bookmark's line.
+      --   `preview_line` (boolean): If true, previews the bookmark's line.
+      --   `workspaces` (table): a table of workspaces name. if it is not empty, the picker will show the bookmarks from the specified workspaces.
+      --   `show_all_workspaces` (boolean): If true, the picker will show all the bookmarks from all the workspaces.
+      --   `g:bookmark_save_per_workspace` must be true for this to work.
+      --   `jump_to_file` (boolean): If true, jumps to the file of the selected bookmark.
+      --   `resolve_symlinks` (boolean): If true, resolves the symlink of the file path.
+      --   `on_attach` (function): a function that is called when the picker is attached.
+    }
   }
 })
+
+require('telescope').load_extension('bookmarks')
+
 
 local builtin = require('telescope.builtin')
 

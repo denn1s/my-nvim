@@ -112,15 +112,9 @@ lspconfig.clangd.setup({
     "--background-index",
     "--clang-tidy",
     "--header-insertion=iwyu",
-    "--suggest-missing-includes",
-    "--compile-commands-dir=build",
-    "--all-scopes-completion",
     "--completion-style=detailed",
-    "--cross-file-rename",
-    "--pch-storage=memory",
-    "-j=8",
   },
-  filetypes = { "c", "cpp", "h", "objc", "objcpp" },
+  filetypes = { "c", "cpp", "h", "hpp", "cxx", "hxx", "objc", "objcpp" },
   root_dir = require("lspconfig.util").root_pattern("compile_commands.json", ".git"),
 })
 
@@ -224,8 +218,12 @@ lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
   settings = {
     ["rust-analyzer"] = {
-      diagnostics = {
-        enable = false,
+      inlayHints = {
+        enable = true,
+      },
+      checkOnSave = true,
+      check = {
+        command = "clippy",
       },
     },
   },

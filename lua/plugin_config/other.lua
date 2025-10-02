@@ -65,8 +65,8 @@ sub.setup {
 		-- normal & visual mode
 		confirm = "<CR>",
 		abort = "<esc>",
-		prevSubst = "<Up>",
-		nextSubst = "<Down>",
+		prevSubstitutionInHistory = "<Up>",
+		nextSubstitutionInHistory = "<Down>",
 		insertModeConfirm = "<C-CR>", -- (except this one, obviously)
 	},
 	incrementalPreview = {

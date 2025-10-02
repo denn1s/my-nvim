@@ -7,4 +7,5 @@ require("plugin_config.copilot")
 require("plugin_config.lsp_config")
 require("plugin_config.tabindentation")
 require("plugin_config.other")
+require("plugin_config.bookmarks")
 
