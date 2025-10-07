@@ -4,6 +4,7 @@ require('telescope').setup({
 	defaults = {
 	  previewer = true,
     layout_strategy = 'flex',
+    path_display = { "truncate" },
     -- mappings = {
     --   n = { ["<leader>t"] = trouble.open_with_trouble },
     -- },
@@ -28,6 +29,16 @@ require('telescope').setup({
   },
   extensions = {
     bookmarks = {
+      entry_maker = function(entry)
+        local new_entry = {}
+        new_entry.value = entry.value
+        new_entry.ordinal = entry.value.lnum .. ": " .. entry.value.line
+        new_entry.display = function(display_entry)
+          local filename = vim.fn.fnamemodify(display_entry.value.file, ":t")
+          return string.format("%s:%s", filename, display_entry.ordinal)
+        end
+        return new_entry
+      end,
       -- Available tables:
       --   `actions` (table): allows you to override the default actions (prepare_send_to_qflist, open_in_trouble, set_previewer_str, etc)
       --   `debug` (boolean): prints debug messages if set to true

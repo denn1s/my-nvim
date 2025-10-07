@@ -31,8 +31,7 @@ local function get_bookmark_path()
 
   -- Define the directory for storing bookmarks
   local bookmark_dir = vim.fn.stdpath('data') .. path_sep .. "nvim_bookmarks"
-  -- Ensure the directory exists
-  ensure_directory_exists(bookmark_dir)
+  -- NOTE: We no longer create the directory here. It will be created on demand.
 
   -- Return the full path to the bookmark file
   return bookmark_dir .. path_sep .. base_filename:gsub(path_sep, '_') .. '.json'
@@ -57,20 +56,28 @@ require("bookmarks").setup {
 
 local bookmarks = require("bookmarks")
 
-vim.keymap.set("n", "mm", function() bookmarks.bookmark_toggle() end, {
+-- Wrapper function to ensure bookmark directory exists before performing an action
+local function ensure_dir_and_run(action)
+  return function()
+    local bookmark_dir = vim.fn.fnamemodify(bookmark_file_path, ":h")
+    ensure_directory_exists(bookmark_dir)
+    action()
+  end
+end
+
+vim.keymap.set("n", "bb", ensure_dir_and_run(bookmarks.bookmark_toggle), {
   noremap = true,
   silent = true,
   desc = "Toggle bookmark",
 })
 
--- This is a new keymap from the user's post to add annotations
-vim.keymap.set("n", "ma", function() bookmarks.bookmark_ann() end, {
+vim.keymap.set("n", "ba", ensure_dir_and_run(bookmarks.bookmark_ann), {
   noremap = true,
   silent = true,
   desc = "Add/edit bookmark annotation",
 })
 
-vim.keymap.set("n", "mo", function()
+vim.keymap.set("n", "bo", function()
   require('telescope').extensions.bookmarks.list()
 end, {
   noremap = true,
@@ -78,7 +85,7 @@ end, {
   desc = "Show bookmarks",
 })
 
-vim.keymap.set("n", "ml", function()
+vim.keymap.set("n", "bl", function()
   require('telescope').extensions.bookmarks.list()
 end, {
   noremap = true,
@@ -86,25 +93,25 @@ end, {
   desc = "Show bookmarks",
 })
 
-vim.keymap.set("n", "mc", function() bookmarks.bookmark_clear_all() end, {
+vim.keymap.set("n", "bc", function() bookmarks.bookmark_clear_all() end, {
   noremap = true,
   silent = true,
   desc = "Clear all bookmarks",
 })
 
-vim.keymap.set("n", "mx", function() bookmarks.bookmark_delete_at_line() end, {
+vim.keymap.set("n", "bx", function() bookmarks.bookmark_delete_at_line() end, {
   noremap = true,
   silent = true,
   desc = "Delete bookmark at line",
 })
 
-vim.keymap.set("n", "mp", function() bookmarks.bookmark_prev() end, {
+vim.keymap.set("n", "bp", function() bookmarks.bookmark_prev() end, {
   noremap = true,
   silent = true,
   desc = "Goto prev bookmark",
 })
 
-vim.keymap.set("n", "mn", function() bookmarks.bookmark_next() end, {
+vim.keymap.set("n", "bn", function() bookmarks.bookmark_next() end, {
   noremap = true,
   silent = true,
   desc = "Goto next bookmark",
