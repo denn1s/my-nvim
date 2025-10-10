@@ -6,7 +6,7 @@ local t = function(s)
 end
 
 local has_words_before = function()
-	if vim.api.nvim_buf_get_option(0, "buftype") == "prompt" then return false end
+	if vim.bo[0].buftype == "prompt" then return false end
 	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 	return col ~= 0 and vim.api.nvim_buf_get_text(0, line-1, 0, line-1, col, {})[1]:match("^%s*$") == nil
 end
@@ -61,15 +61,15 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<C-Down>"] = cmp.mapping(
+		["<C-j>"] = cmp.mapping(
 			cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 			{ "i", "s", "c" }
 		),
-		["<C-Up>"] = cmp.mapping(
+		["<C-k>"] = cmp.mapping(
 			cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 			{ "i", "s", "c" }
 		),
-		["<C-Right>"] = cmp.mapping(function(fallback)
+		["<C-l>"] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
 				vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
 			else
@@ -79,7 +79,7 @@ cmp.setup({
 				"i",
 				"s",
 			}),
-		["<C-Left>"] = cmp.mapping(function(fallback)
+		["<C-h>"] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
 			else
@@ -110,6 +110,7 @@ cmp.setup({
 		{ name = "luasnip", keyword_length = 2, max_item_count = 5, priority = 1500 },
 		{ name = "nvim_lsp", keyword_length = 3, max_item_count = 5, priority = 1000 },
 		{ name = "nvim_lsp_signature_help" },
+		{ name = "buffer", keyword_length = 3, max_item_count = 5, priority = 500 },
 		{ name = "path", keyword_length = 5, max_item_count = 5, priority = 300 },
 	},
 	experimental = {
@@ -120,5 +121,12 @@ cmp.setup({
 cmp.setup.cmdline(":", {
 	sources = {
 		{ name = "cmdline", keyword_length = 2 },
+		{ name = "path" },
+	},
+})
+
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer" },
 	},
 })

@@ -1,7 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.opt.backspace = '2'
 vim.opt.showcmd = true
 vim.opt.laststatus = 2
 vim.opt.autowrite = true
@@ -24,7 +23,7 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.signcolumn = "yes"
 
 -- other
-vim.opt.backspace = {"indent", "eol,start"}
+vim.opt.backspace = {"indent", "eol", "start"}
 -- vim.opt.clipboard = {"unnamed", "unnamedplus"}
 vim.opt.linebreak = true -- set soft wrapping
 vim.opt.showbreak = "↪ "

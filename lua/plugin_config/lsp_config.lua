@@ -18,6 +18,11 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities(
 )
 capabilities.offsetEncoding = { "utf-8", "utf-16" }
 
+local on_attach = function(client, bufnr)
+  -- Ensure LSP attaches and is ready
+  vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+end
+
 local default_keys = {
   close = "<escape>",
   edit = "o",
@@ -84,6 +89,7 @@ local lspconfig = require("lspconfig")
 
 lspconfig.lua_ls.setup {
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     Lua = {
       diagnostics = {
@@ -107,6 +113,7 @@ lspconfig.lua_ls.setup {
 
 lspconfig.clangd.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   cmd = {
     "clangd",
     "--background-index",
@@ -120,6 +127,7 @@ lspconfig.clangd.setup({
 
 lspconfig.cssls.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     css = {
       lint = {
@@ -131,6 +139,7 @@ lspconfig.cssls.setup({
 
 lspconfig.jsonls.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     json = {
       schemas = {
@@ -161,6 +170,7 @@ lspconfig.jsonls.setup({
 
 lspconfig.eslint.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     codeAction = {
       disableRuleComment = {
@@ -192,6 +202,7 @@ lspconfig.eslint.setup({
 
 lspconfig.ts_ls.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     javascript = {
       inlayHints = {
@@ -212,14 +223,12 @@ lspconfig.ts_ls.setup({
 
 lspconfig.html.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
 })
 
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
-  on_attach = function(client, bufnr)
-    -- Ensure LSP attaches and is ready
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-  end,
+  on_attach = on_attach,
   root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json", ".git"),
   settings = {
     ["rust-analyzer"] = {
@@ -236,6 +245,7 @@ lspconfig.rust_analyzer.setup {
 
 lspconfig.gopls.setup({
   capabilities = capabilities,
+  on_attach = on_attach,
   settings = {
     gopls = {
       gofumpt = true,

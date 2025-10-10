@@ -82,9 +82,9 @@ sub.setup {
 	},
 }
 
-vim.keymap.set({"n"}, "<c-r>", function()
+vim.keymap.set({"n"}, "<C-S-r>", function()
 	sub.sub()
 end, { desc = "Rip Substitute" } )
 
-vim.keymap.set({"x"}, "<c-r>", ":RipSubstitute<cr>", { desc = "Rip Substitute Range" })
+vim.keymap.set({"x"}, "<C-S-r>", ":RipSubstitute<cr>", { desc = "Rip Substitute Range" })
 
