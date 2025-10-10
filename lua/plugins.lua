@@ -79,14 +79,14 @@ local plugins = {
   },
 
   -- Fuzzy Finding and Navigation
-  'nvim-lua/plenary.nvim', -- Required dependency for telescope
   {
     'nvim-telescope/telescope.nvim', -- Fuzzy finder and picker
     tag = '0.1.8',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('plugin_config.telescope')
-    end,
+    lazy = false,
+    priority = 100,
+    dependencies = {
+      { 'nvim-lua/plenary.nvim', lazy = false, priority = 200 }
+    }
   },
   {
     "tomasky/bookmarks.nvim",
