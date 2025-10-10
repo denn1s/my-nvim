@@ -13,10 +13,8 @@ require("mason-lspconfig").setup({
   automatic_installation = true,
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
-capabilities.offsetEncoding = { "utf-8", "utf-16" }
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+capabilities.offsetEncoding = { "utf-16", "utf-8" }
 
 local on_attach = function(client, bufnr)
   -- Ensure LSP attaches and is ready
@@ -85,24 +83,27 @@ vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_buf_diagnostics<CR>", {
 vim.keymap.set("n", "<leader>o", "<cmd>Lspsaga outline<CR>", { silent = true })
 vim.keymap.set("n", "<leader>g", vim.lsp.buf.definition, { silent = true })
 
-local lspconfig = require("lspconfig")
-
-lspconfig.lua_ls.setup {
+-- Use the new vim.lsp.config API (Neovim 0.11+)
+vim.lsp.config.lua_ls = {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
     Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
       diagnostics = {
         globals = { "vim" },
       },
       workspace = {
         checkThirdParty = false,
-        library = {
-          [vim.fn.expand "$VIMRUNTIME/lua"] = true,
-          [vim.fn.stdpath "config" .. "/lua"] = true,
-          "/usr/share/lua/5.4",
-          "/usr/local/share/lua/5.4",
-        },
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      telemetry = {
+        enable = false,
       },
       completion = {
         callSnippet = "Replace",
@@ -111,9 +112,7 @@ lspconfig.lua_ls.setup {
   },
 }
 
-lspconfig.clangd.setup({
-  capabilities = capabilities,
-  on_attach = on_attach,
+vim.lsp.config.clangd = {
   cmd = {
     "clangd",
     "--background-index",
@@ -122,10 +121,15 @@ lspconfig.clangd.setup({
     "--completion-style=detailed",
   },
   filetypes = { "c", "cpp", "h", "hpp", "cxx", "hxx", "objc", "objcpp" },
-  root_dir = require("lspconfig.util").root_pattern("compile_commands.json", ".git"),
-})
+  root_markers = { "compile_commands.json", ".git" },
+  capabilities = capabilities,
+  on_attach = on_attach,
+}
 
-lspconfig.cssls.setup({
+vim.lsp.config.cssls = {
+  cmd = { "vscode-css-language-server", "--stdio" },
+  filetypes = { "css", "scss", "less" },
+  root_markers = { "package.json", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -135,9 +139,12 @@ lspconfig.cssls.setup({
       },
     },
   },
-})
+}
 
-lspconfig.jsonls.setup({
+vim.lsp.config.jsonls = {
+  cmd = { "vscode-json-language-server", "--stdio" },
+  filetypes = { "json", "jsonc" },
+  root_markers = { ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -166,9 +173,12 @@ lspconfig.jsonls.setup({
       },
     },
   },
-})
+}
 
-lspconfig.eslint.setup({
+vim.lsp.config.eslint = {
+  cmd = { "vscode-eslint-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue", "svelte", "astro" },
+  root_markers = { ".eslintrc", ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.yaml", ".eslintrc.yml", ".eslintrc.json", "package.json", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -198,9 +208,12 @@ lspconfig.eslint.setup({
       mode = "location",
     },
   },
-})
+}
 
-lspconfig.ts_ls.setup({
+vim.lsp.config.ts_ls = {
+  cmd = { "typescript-language-server", "--stdio" },
+  filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  root_markers = { "tsconfig.json", "package.json", "jsconfig.json", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -219,17 +232,22 @@ lspconfig.ts_ls.setup({
       },
     },
   },
-})
+}
 
-lspconfig.html.setup({
+vim.lsp.config.html = {
+  cmd = { "vscode-html-language-server", "--stdio" },
+  filetypes = { "html", "templ" },
+  root_markers = { ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
-})
+}
 
-lspconfig.rust_analyzer.setup {
+vim.lsp.config.rust_analyzer = {
+  cmd = { "rust-analyzer" },
+  filetypes = { "rust" },
+  root_markers = { "Cargo.toml", "rust-project.json", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
-  root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json", ".git"),
   settings = {
     ["rust-analyzer"] = {
       inlayHints = {
@@ -243,7 +261,10 @@ lspconfig.rust_analyzer.setup {
   },
 }
 
-lspconfig.gopls.setup({
+vim.lsp.config.gopls = {
+  cmd = { "gopls" },
+  filetypes = { "go", "gomod", "gowork", "gotmpl" },
+  root_markers = { "go.work", "go.mod", ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
   settings = {
@@ -287,9 +308,16 @@ lspconfig.gopls.setup({
       },
     },
   },
-  flags = {
-    debounce_text_changes = 150,
-  },
-})
+}
+
+-- Enable LSP servers for the configured filetypes
+-- Enable them one by one to help identify any problematic configurations
+local servers = { "lua_ls", "clangd", "cssls", "jsonls", "eslint", "ts_ls", "html", "rust_analyzer", "gopls" }
+for _, server in ipairs(servers) do
+  local ok, err = pcall(vim.lsp.enable, server)
+  if not ok then
+    vim.notify("Failed to enable " .. server .. ": " .. tostring(err), vim.log.levels.ERROR)
+  end
+end
 
 
