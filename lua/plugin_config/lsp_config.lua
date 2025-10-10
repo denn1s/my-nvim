@@ -216,6 +216,11 @@ lspconfig.html.setup({
 
 lspconfig.rust_analyzer.setup {
   capabilities = capabilities,
+  on_attach = function(client, bufnr)
+    -- Ensure LSP attaches and is ready
+    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
+  end,
+  root_dir = require("lspconfig.util").root_pattern("Cargo.toml", "rust-project.json", ".git"),
   settings = {
     ["rust-analyzer"] = {
       inlayHints = {

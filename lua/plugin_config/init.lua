@@ -1,6 +1,5 @@
 require("plugin_config.colorscheme")
 require("plugin_config.lualine")
-require("plugin_config.telescope")
 require("plugin_config.treesitter")
 require("plugin_config.completions")
 require("plugin_config.copilot")
