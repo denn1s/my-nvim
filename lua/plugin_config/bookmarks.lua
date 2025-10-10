@@ -78,7 +78,7 @@ vim.keymap.set("n", "ba", ensure_dir_and_run(bookmarks.bookmark_ann), {
 })
 
 vim.keymap.set("n", "bo", function()
-  require('telescope').extensions.bookmarks.list()
+  require('plugin_config.telescope').custom_bookmarks_list()
 end, {
   noremap = true,
   silent = true,
@@ -86,7 +86,7 @@ end, {
 })
 
 vim.keymap.set("n", "bl", function()
-  require('telescope').extensions.bookmarks.list()
+  require('plugin_config.telescope').custom_bookmarks_list()
 end, {
   noremap = true,
   silent = true,

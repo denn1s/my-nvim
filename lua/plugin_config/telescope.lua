@@ -28,34 +28,97 @@ require('telescope').setup({
     }
   },
   extensions = {
-    bookmarks = {
-      entry_maker = function(entry)
-        local new_entry = {}
-        new_entry.value = entry.value
-        new_entry.ordinal = entry.value.lnum .. ": " .. entry.value.line
-        new_entry.display = function(display_entry)
-          local filename = vim.fn.fnamemodify(display_entry.value.file, ":t")
-          return string.format("%s:%s", filename, display_entry.ordinal)
-        end
-        return new_entry
-      end,
-      -- Available tables:
-      --   `actions` (table): allows you to override the default actions (prepare_send_to_qflist, open_in_trouble, set_previewer_str, etc)
-      --   `debug` (boolean): prints debug messages if set to true
-      --   `preview_file_path` (boolean): If true, previews the file instead of the bookmark's line.
-      --   `preview_line` (boolean): If true, previews the bookmark's line.
-      --   `workspaces` (table): a table of workspaces name. if it is not empty, the picker will show the bookmarks from the specified workspaces.
-      --   `show_all_workspaces` (boolean): If true, the picker will show all the bookmarks from all the workspaces.
-      --   `g:bookmark_save_per_workspace` must be true for this to work.
-      --   `jump_to_file` (boolean): If true, jumps to the file of the selected bookmark.
-      --   `resolve_symlinks` (boolean): If true, resolves the symlink of the file path.
-      --   `on_attach` (function): a function that is called when the picker is attached.
-    }
+    bookmarks = {}
   }
 })
 
 require('telescope').load_extension('bookmarks')
 
+-- Custom bookmarks telescope picker with simplified display
+local function custom_bookmarks_list(opts)
+  opts = opts or {}
+
+  local has_telescope, telescope = pcall(require, "telescope")
+  if not has_telescope then
+    vim.notify("Telescope is required", vim.log.levels.ERROR)
+    return
+  end
+
+  local finders = require("telescope.finders")
+  local pickers = require("telescope.pickers")
+  local entry_display = require("telescope.pickers.entry_display")
+  local conf = require("telescope.config").values
+  local config = require("bookmarks.config").config
+  local utils = require("telescope.utils")
+
+  -- Get bookmarks data
+  local allmarks = config.cache.data
+  local marklist = {}
+  for k, ma in pairs(allmarks) do
+    for l, v in pairs(ma) do
+      table.insert(marklist, {
+        filename = k,
+        lnum = tonumber(l),
+        text = v.a or v.m,
+      })
+    end
+  end
+
+  -- Custom display function
+  local display = function(entry)
+    local displayer = entry_display.create({
+      separator = "▏",
+      items = {
+        { width = 5 },
+        { width = 30 },
+        { remaining = true },
+      },
+    })
+
+    local line_info = { entry.lnum, "TelescopeResultsLineNr" }
+
+    -- Get path relative to current working directory
+    local filepath = entry.filename
+    local cwd = vim.fn.getcwd()
+    local relative_path
+
+    if filepath:sub(1, #cwd) == cwd then
+      -- File is in current working directory, show relative path
+      relative_path = filepath:sub(#cwd + 2) -- +2 to skip the trailing slash
+    else
+      -- File is outside cwd, just show filename
+      relative_path = vim.fn.fnamemodify(filepath, ":t")
+    end
+
+    return displayer({
+      line_info,
+      entry.text,
+      relative_path,
+    })
+  end
+
+  -- Create picker
+  pickers.new(opts, {
+    prompt_title = "bookmarks",
+    finder = finders.new_table({
+      results = marklist,
+      entry_maker = function(entry)
+        return {
+          valid = true,
+          value = entry,
+          display = display,
+          ordinal = entry.filename .. entry.text,
+          filename = entry.filename,
+          lnum = entry.lnum,
+          col = 1,
+          text = entry.text,
+        }
+      end,
+    }),
+    sorter = conf.generic_sorter(opts),
+    previewer = conf.qflist_previewer(opts),
+  }):find()
+end
 
 local builtin = require('telescope.builtin')
 
@@ -135,3 +198,8 @@ arena.setup({
 
 
 vim.keymap.set('n', '<Space><Space>', '<cmd>ArenaOpen<cr>', { silent = true })
+
+-- Export custom bookmarks function
+return {
+  custom_bookmarks_list = custom_bookmarks_list
+}
