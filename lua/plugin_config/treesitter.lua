@@ -7,7 +7,6 @@ require'nvim-treesitter.configs'.setup {
   auto_install = true,
   highlight = {
     enable = true,
-    additional_vim_regex_highlighting = { "rust" },
   },
   indent = { enable = true },
   incremental_selection = {

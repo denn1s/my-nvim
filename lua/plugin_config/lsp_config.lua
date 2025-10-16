@@ -257,6 +257,9 @@ vim.lsp.config.rust_analyzer = {
       check = {
         command = "clippy",
       },
+      diagnostics = {
+        disabled = { "unresolved-module", "unresolved-import", "unlinked-file" },
+      },
     },
   },
 }

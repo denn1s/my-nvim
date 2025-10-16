@@ -16,6 +16,17 @@ vim.diagnostic.config({
     virtual_text = false
 })
 
+-- Prevent DiagnosticUnnecessary from graying out text
+-- This happens when rust-analyzer marks entire files as unused
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    -- Make DiagnosticUnnecessary not affect text color, only add subtle underline
+    vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = "#6e7681", undercurl = true })
+  end,
+})
+-- Apply it immediately
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { sp = "#6e7681", undercurl = true })
+
 -- Highlight on yank
 vim.api.nvim_create_autocmd("TextYankPost",
   { callback = function() vim.highlight.on_yank({ higroup = 'IncSearch', timeout = 100 }) end })
