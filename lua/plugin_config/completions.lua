@@ -89,20 +89,27 @@ cmp.setup({
 				"i",
 				"s",
 			}),
-		["<Tab>"] = vim.schedule_wrap(function(fallback)
-			if cmp.visible() and has_words_before() then
+		["<Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
 				cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
 			else
 				fallback()
 			end
-		end),
+		end, { "i", "s", "c" }),
+		["<S-Tab>"] = cmp.mapping(function(fallback)
+			if cmp.visible() then
+				cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+			else
+				fallback()
+			end
+		end, { "i", "s", "c" }),
 		['<CR>'] = cmp.mapping(function(fallback)
 			if cmp.visible() and cmp.get_active_entry() then
 				cmp.confirm({ select = false })
 			else
 				fallback()
 			end
-		end, { "i", "s" }),
+		end, { "i", "s", "c" }),
 		['<C-s>'] = cmp.mapping.confirm({ select = true }),
 	},
 	sources = {

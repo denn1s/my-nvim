@@ -276,7 +276,6 @@ vim.lsp.config.gopls = {
       analyses = {
         unusedparams = true,
         shadow = true,
-        fieldalignment = true,
         nilness = true,
         unusedwrite = true,
         useany = true,
