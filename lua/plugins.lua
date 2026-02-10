@@ -22,6 +22,11 @@ local plugins = {
   -- Syntax and Language Support
   'nvim-treesitter/nvim-treesitter', -- Better syntax highlighting and code understanding
   {
+    'windwp/nvim-ts-autotag', -- Auto close and rename HTML tags
+    dependencies = 'nvim-treesitter/nvim-treesitter',
+    ft = { 'html', 'xml', 'javascriptreact', 'typescriptreact' },
+  },
+  {
     "fatih/vim-go", -- Comprehensive Go development plugin
     ft = "go",
     build = ":GoUpdateBinaries",
@@ -32,6 +37,10 @@ local plugins = {
   {
     'windwp/nvim-autopairs', -- Automatic bracket pairing
     event = "InsertEnter",
+  },
+  {
+    'mattn/emmet-vim', -- Emmet support for HTML/CSS
+    ft = { 'html', 'css', 'javascriptreact', 'typescriptreact' },
   },
   "Wansmer/treesj", -- Smart code block splitting and joining
   {
@@ -101,18 +110,6 @@ local plugins = {
     "dzfrias/arena.nvim", -- Buffer management
     event = "BufWinEnter",
   },
-
-  -- Ai stuff
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim", -- optional
-      "nvim-telescope/telescope.nvim"
-    }
-  }
 }
 
 local opts = {}

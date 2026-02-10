@@ -44,6 +44,6 @@ require'nvim-treesitter.configs'.setup {
   },
   -- rainbow = { enable = true, extended_mode = true },
   context_commentstring = { enable = true, enable_autocmd = false },
-  -- autotag = { enable = true },
+  -- autotag = { enable = true }, -- DEPRECATED: Now configured in plugin_config/autotag.lua
   -- playground = { enable = true },
 }

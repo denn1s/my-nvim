@@ -1,1 +1,183 @@
-{"image":{"prefix":"image","body":"background-image: url('$0');"},"position: absolute":{"body":["position: absolute;","top: 0;","left: 0;"],"prefix":"position: absolute"},"position: relative":{"prefix":"position: relative","body":"position: relative;"},"keyframes (percent)":{"prefix":"keyframes (percent)","body":["@keyframes $1 {","  0% {","","  }","  100% {","","  }","}"]},"100%":{"prefix":"100%","body":["width: 100%;","height: 100%;"]}}
+{
+  "image": {
+    "prefix": "bgimg",
+    "body": "background-image: url('$0');",
+    "description": "Background image"
+  },
+  "position: absolute": {
+    "body": ["position: absolute;", "top: $1;", "left: $2;$0"],
+    "prefix": "posa",
+    "description": "Absolute positioning"
+  },
+  "position: relative": {
+    "prefix": "posr",
+    "body": "position: relative;",
+    "description": "Relative positioning"
+  },
+  "position: fixed": {
+    "prefix": "posf",
+    "body": ["position: fixed;", "top: $1;", "left: $2;$0"],
+    "description": "Fixed positioning"
+  },
+  "flexbox container": {
+    "prefix": "flex",
+    "body": [
+      "display: flex;",
+      "justify-content: $1;",
+      "align-items: $2;$0"
+    ],
+    "description": "Flexbox container"
+  },
+  "flexbox center": {
+    "prefix": "flexcenter",
+    "body": [
+      "display: flex;",
+      "justify-content: center;",
+      "align-items: center;"
+    ],
+    "description": "Flexbox centered content"
+  },
+  "grid container": {
+    "prefix": "grid",
+    "body": [
+      "display: grid;",
+      "grid-template-columns: $1;",
+      "gap: $2;$0"
+    ],
+    "description": "CSS Grid container"
+  },
+  "grid 3 columns": {
+    "prefix": "grid3",
+    "body": [
+      "display: grid;",
+      "grid-template-columns: repeat(3, 1fr);",
+      "gap: $1;$0"
+    ],
+    "description": "3-column grid"
+  },
+  "margin auto center": {
+    "prefix": "center",
+    "body": "margin: 0 auto;",
+    "description": "Center with auto margins"
+  },
+  "box model": {
+    "prefix": "box",
+    "body": [
+      "margin: $1;",
+      "padding: $2;",
+      "border: $3;$0"
+    ],
+    "description": "Box model properties"
+  },
+  "border": {
+    "prefix": "border",
+    "body": "border: ${1:1px} ${2:solid} ${3:#000};$0",
+    "description": "Border shorthand"
+  },
+  "border-radius": {
+    "prefix": "radius",
+    "body": "border-radius: $1;$0",
+    "description": "Border radius"
+  },
+  "box-shadow": {
+    "prefix": "shadow",
+    "body": "box-shadow: ${1:0} ${2:2px} ${3:4px} rgba(0, 0, 0, ${4:0.1});$0",
+    "description": "Box shadow"
+  },
+  "transition": {
+    "prefix": "transition",
+    "body": "transition: ${1:all} ${2:0.3s} ${3:ease};$0",
+    "description": "CSS transition"
+  },
+  "transform": {
+    "prefix": "transform",
+    "body": "transform: $0;",
+    "description": "CSS transform"
+  },
+  "hover effect": {
+    "prefix": "hover",
+    "body": [
+      "&:hover {",
+      "  $0",
+      "}"
+    ],
+    "description": "Hover pseudo-class"
+  },
+  "media query": {
+    "prefix": "media",
+    "body": [
+      "@media (max-width: ${1:768px}) {",
+      "  $0",
+      "}"
+    ],
+    "description": "Media query"
+  },
+  "keyframes (percent)": {
+    "prefix": "keyframes",
+    "body": [
+      "@keyframes $1 {",
+      "  0% {",
+      "    $2",
+      "  }",
+      "  100% {",
+      "    $0",
+      "  }",
+      "}"
+    ],
+    "description": "CSS keyframes animation"
+  },
+  "animation": {
+    "prefix": "anim",
+    "body": "animation: ${1:name} ${2:1s} ${3:ease} ${4:infinite};$0",
+    "description": "CSS animation"
+  },
+  "font": {
+    "prefix": "font",
+    "body": [
+      "font-family: $1;",
+      "font-size: $2;",
+      "font-weight: $3;$0"
+    ],
+    "description": "Font properties"
+  },
+  "text-align": {
+    "prefix": "text",
+    "body": "text-align: ${1:center};$0",
+    "description": "Text alignment"
+  },
+  "color": {
+    "prefix": "color",
+    "body": "color: $1;$0",
+    "description": "Text color"
+  },
+  "background": {
+    "prefix": "bg",
+    "body": "background: $1;$0",
+    "description": "Background"
+  },
+  "width/height 100%": {
+    "prefix": "full",
+    "body": ["width: 100%;", "height: 100%;"],
+    "description": "Full width and height"
+  },
+  "max-width container": {
+    "prefix": "container",
+    "body": [
+      "max-width: ${1:1200px};",
+      "margin: 0 auto;",
+      "padding: ${2:0 20px};$0"
+    ],
+    "description": "Centered container"
+  },
+  "reset": {
+    "prefix": "reset",
+    "body": [
+      "* {",
+      "  margin: 0;",
+      "  padding: 0;",
+      "  box-sizing: border-box;",
+      "}"
+    ],
+    "description": "CSS reset"
+  }
+}

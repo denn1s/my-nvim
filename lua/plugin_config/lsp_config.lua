@@ -37,6 +37,12 @@ require("lspsaga").setup({
       quit = "<escape>",
     },
   },
+  hover = {
+    max_width = 0.6,
+    max_height = 0.8,
+    open_link = "gx",
+    open_cmd = "!xdg-open",
+  },
   definition = {
     keys = default_keys,
   },

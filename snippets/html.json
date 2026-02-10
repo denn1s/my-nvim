@@ -1,1 +1,150 @@
-{"tag":{"body":["<$1>","  $0","<\/$1>"],"prefix":"tag"},"tag (with class)":{"body":"<$1 class=\"$2\">$0<\/$1>","prefix":"tag (with class)"},"tag (inline)":{"body":"<$1>$0<\/$1>","prefix":"tag (inline)"},"html":{"body":["<!DOCTYPE html>","<html>","<head>","    <meta charset=\"UTF-8\">","    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">","    <title><\/title>","    <link rel=\"stylesheet\" href=\"styles.css\">","<\/head>","<body>","<\/body>","<\/html>"],"prefix":"html"},"tailwind (cdn)":{"body":"<script src=\"https:\/\/unpkg.com\/@tailwindcss\/browser@4\"><\/script>","prefix":"tailwind (cdn)"}}
+{
+  "tag": {
+    "body": ["<$1>", "  $0", "</$1>"],
+    "prefix": "tag",
+    "description": "Generic HTML tag with content"
+  },
+  "tag (with class)": {
+    "body": "<$1 class=\"$2\">$0</$1>",
+    "prefix": "tag (with class)",
+    "description": "HTML tag with class attribute"
+  },
+  "tag (inline)": {
+    "body": "<$1>$0</$1>",
+    "prefix": "tag (inline)",
+    "description": "Inline HTML tag"
+  },
+  "html": {
+    "body": [
+      "<!DOCTYPE html>",
+      "<html lang=\"en\">",
+      "<head>",
+      "    <meta charset=\"UTF-8\">",
+      "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "    <title>$1</title>",
+      "    <link rel=\"stylesheet\" href=\"styles.css\">",
+      "</head>",
+      "<body>",
+      "    $0",
+      "</body>",
+      "</html>"
+    ],
+    "prefix": "html",
+    "description": "Complete HTML5 boilerplate"
+  },
+  "div": {
+    "body": ["<div class=\"$1\">", "  $0", "</div>"],
+    "prefix": "div",
+    "description": "Div with class"
+  },
+  "section": {
+    "body": ["<section class=\"$1\">", "  $0", "</section>"],
+    "prefix": "section",
+    "description": "Section with class"
+  },
+  "article": {
+    "body": ["<article class=\"$1\">", "  $0", "</article>"],
+    "prefix": "article",
+    "description": "Article with class"
+  },
+  "header": {
+    "body": ["<header>", "  $0", "</header>"],
+    "prefix": "header",
+    "description": "Header element"
+  },
+  "footer": {
+    "body": ["<footer>", "  $0", "</footer>"],
+    "prefix": "footer",
+    "description": "Footer element"
+  },
+  "nav": {
+    "body": ["<nav>", "  <ul>", "    <li><a href=\"$1\">$2</a></li>$0", "  </ul>", "</nav>"],
+    "prefix": "nav",
+    "description": "Navigation with list"
+  },
+  "ul": {
+    "body": ["<ul>", "  <li>$0</li>", "</ul>"],
+    "prefix": "ul",
+    "description": "Unordered list"
+  },
+  "ol": {
+    "body": ["<ol>", "  <li>$0</li>", "</ol>"],
+    "prefix": "ol",
+    "description": "Ordered list"
+  },
+  "table": {
+    "body": [
+      "<table>",
+      "  <thead>",
+      "    <tr>",
+      "      <th>$1</th>",
+      "    </tr>",
+      "  </thead>",
+      "  <tbody>",
+      "    <tr>",
+      "      <td>$0</td>",
+      "    </tr>",
+      "  </tbody>",
+      "</table>"
+    ],
+    "prefix": "table",
+    "description": "HTML table structure"
+  },
+  "form": {
+    "body": [
+      "<form action=\"$1\" method=\"$2\">",
+      "  <label for=\"$3\">$4</label>",
+      "  <input type=\"text\" id=\"$3\" name=\"$3\">",
+      "  $0",
+      "  <button type=\"submit\">Submit</button>",
+      "</form>"
+    ],
+    "prefix": "form",
+    "description": "Form with label and input"
+  },
+  "input": {
+    "body": "<input type=\"$1\" id=\"$2\" name=\"$2\" placeholder=\"$3\">$0",
+    "prefix": "input",
+    "description": "Input element"
+  },
+  "button": {
+    "body": "<button class=\"$1\">$0</button>",
+    "prefix": "btn",
+    "description": "Button element"
+  },
+  "link": {
+    "body": "<a href=\"$1\">$0</a>",
+    "prefix": "a",
+    "description": "Anchor link"
+  },
+  "img": {
+    "body": "<img src=\"$1\" alt=\"$2\">$0",
+    "prefix": "img",
+    "description": "Image with alt text"
+  },
+  "script": {
+    "body": "<script src=\"$1\"></script>$0",
+    "prefix": "script",
+    "description": "Script tag"
+  },
+  "style": {
+    "body": ["<style>", "  $0", "</style>"],
+    "prefix": "style",
+    "description": "Style tag"
+  },
+  "tailwind (cdn)": {
+    "body": "<script src=\"https://unpkg.com/@tailwindcss/browser@4\"></script>",
+    "prefix": "tailwind (cdn)",
+    "description": "Tailwind CSS CDN"
+  },
+  "flexbox container": {
+    "body": ["<div class=\"flex-container\">", "  <div class=\"flex-item\">$1</div>", "  <div class=\"flex-item\">$2</div>", "  <div class=\"flex-item\">$3</div>$0", "</div>"],
+    "prefix": "flex",
+    "description": "Flexbox container with items"
+  },
+  "grid container": {
+    "body": ["<div class=\"grid-container\">", "  <div class=\"grid-item\">$1</div>", "  <div class=\"grid-item\">$2</div>", "  <div class=\"grid-item\">$3</div>$0", "</div>"],
+    "prefix": "grid",
+    "description": "Grid container with items"
+  }
+}

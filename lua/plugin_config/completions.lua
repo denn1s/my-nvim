@@ -37,6 +37,53 @@ vim.keymap.set({"i", "s"}, "<C-N>", function ()
 	end
 end, {expr = true, noremap = true})
 
+-- Custom preprocessing for completion items to clean up CSS documentation
+local function preprocess_completion_item(entry)
+	-- Only process CSS/SCSS/LESS files
+	local filetype = vim.bo.filetype
+	if not (filetype == 'css' or filetype == 'scss' or filetype == 'less') then
+		return
+	end
+
+	-- Clean up documentation for CSS LSP
+	if entry.source.name == 'nvim_lsp' then
+		local item = entry:get_completion_item()
+		if item.documentation then
+			vim.notify("CSS doc preprocessing triggered", vim.log.levels.INFO)
+			local doc = item.documentation
+			if type(doc) == 'table' and doc.value then
+				local original = doc.value
+				-- Remove base64 encoded images (Baseline icons) - fixed pattern
+				doc.value = doc.value:gsub('!%[Baseline[^%]]*%]%(data:image/[^%)]+%)', '')
+				-- Remove MDN reference URLs - more flexible pattern
+				doc.value = doc.value:gsub('%[MDN [Rr]eference%]%(https?://[^%)]+%)', '')
+				-- Remove standalone URLs
+				doc.value = doc.value:gsub('https?://[^%s%)]+', '')
+				-- Clean up "Baseline" text
+				doc.value = doc.value:gsub('Baseline[^\n]*', '')
+				-- Clean up extra whitespace/newlines
+				doc.value = doc.value:gsub('\n\n\n+', '\n\n')
+				doc.value = doc.value:gsub('^\n+', '')
+				doc.value = doc.value:gsub('%s+$', '')
+
+				if original ~= doc.value then
+					vim.notify("CSS doc cleaned!", vim.log.levels.INFO)
+				end
+			elseif type(doc) == 'string' then
+				doc = doc:gsub('!%[Baseline[^%]]*%]%(data:image/[^%)]+%)', '')
+				doc = doc:gsub('%[MDN [Rr]eference%]%(https?://[^%)]+%)', '')
+				doc = doc:gsub('https?://[^%s%)]+', '')
+				doc = doc:gsub('Baseline[^\n]*', '')
+				doc = doc:gsub('\n\n\n+', '\n\n')
+				doc = doc:gsub('^\n+', '')
+				doc = doc:gsub('%s+$', '')
+				item.documentation = doc
+				vim.notify("CSS doc cleaned (string)!", vim.log.levels.INFO)
+			end
+		end
+	end
+end
+
 cmp.setup({
 	preselect = cmp.PreselectMode.None,
 	window = {
@@ -54,6 +101,10 @@ cmp.setup({
 			cmp.ItemField.Kind,
 			cmp.ItemField.Abbr,
 		},
+		format = function(entry, vim_item)
+			preprocess_completion_item(entry)
+			return vim_item
+		end,
 	},
 	snippet = {
 		expand = function(args)
