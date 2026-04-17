@@ -158,7 +158,7 @@ All servers auto-installed via mason and enabled via `vim.lsp.enable()`:
 - `<C-d>` - Duplicate line/selection
 - `<A-Up>` / `<A-Down>` - Move lines up/down
 - `<A-o>` / `<A-S-o>` - Open new line above/below without entering insert
-- `<C-Left>` / `<C-Right>` - Move by words
+- `<C-Left>` / `<C-Right>` - Move by words (normal mode only; in insert mode, navigates snippets)
 - `<C-Up>` / `<C-Down>` - Move by paragraphs
 - `<C-S-Up>` / `<C-S-Down>` - Move by functions
 - `<A-Left>` / `<A-Right>` - Navigate buffers
@@ -173,7 +173,8 @@ All servers auto-installed via mason and enabled via `vim.lsp.enable()`:
 ### Snippets
 - `<leader>se` - Edit snippet
 - `<leader>sa` - Add new snippet
-- `<C-n>` / `<C-N>` - Jump to next/previous snippet placeholder
+- `<C-l>` / `<C-h>` - Jump to next/previous snippet placeholder (also expands snippets)
+- `<C-Right>` / `<C-Left>` - Alternative: Jump to next/previous snippet placeholder (insert mode)
 
 ### Completion (nvim-cmp)
 - `<C-j>` / `<C-k>` - Navigate completion items

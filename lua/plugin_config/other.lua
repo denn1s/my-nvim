@@ -63,18 +63,15 @@ sub.setup {
 	},
 	keymaps = {
 		-- normal & visual mode
-		confirm = "<CR>",
+		confirmAndSubstituteInBuffer = "<CR>",
 		abort = "<esc>",
 		prevSubstitutionInHistory = "<Up>",
 		nextSubstitutionInHistory = "<Down>",
-		insertModeConfirm = "<C-CR>", -- (except this one, obviously)
+		insertModeConfirmAndSubstituteInBuffer = "<C-CR>", -- (except this one, obviously)
 	},
 	incrementalPreview = {
 		matchHlGroup = "IncSearch",
-		rangeBackdrop = {
-			enabled = true,
-			blend = 10, -- between 0 and 100
-		},
+		rangeBackdropBrightness = 10, -- between 0 and 100
 	},
 	regexOptions = {
 		-- pcre2 enables lookarounds and backreferences, but performs slower

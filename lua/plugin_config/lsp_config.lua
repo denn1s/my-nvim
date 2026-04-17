@@ -246,6 +246,26 @@ vim.lsp.config.html = {
   root_markers = { ".git" },
   capabilities = capabilities,
   on_attach = on_attach,
+  init_options = {
+    provideFormatter = true,
+    embeddedLanguages = {
+      css = true,
+      javascript = true,
+    },
+  },
+  settings = {
+    html = {
+      validate = {
+        scripts = true,
+        styles = true,
+      },
+    },
+    css = {
+      lint = {
+        validProperties = {},
+      },
+    },
+  },
 }
 
 vim.lsp.config.rust_analyzer = {

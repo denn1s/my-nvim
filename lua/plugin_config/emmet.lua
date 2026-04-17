@@ -1,26 +1,36 @@
 -- Emmet configuration for HTML/CSS expansion
--- Trigger: <C-y>, (Ctrl+y followed by comma) - this is the standard Emmet trigger
--- Example: div.container>ul>li*3 then <C-y>, expands to full HTML
+-- Main Trigger: <C-e> in Insert and Visual mode
 
--- Enable Emmet globally (it will only work in supported filetypes)
+-- Enable Emmet globally
 vim.g.user_emmet_install_global = 1
 
--- Only enable for specific file types
-vim.g.user_emmet_mode = 'inv' -- enable in insert, visual, and normal modes
+-- Enable in Insert (i), Visual (v), and Normal (n) modes
+vim.g.user_emmet_mode = 'inv'
 
--- Simple settings - just set the language variable
+-- Advanced settings
 vim.g.user_emmet_settings = {
   variables = {
     lang = 'en',
     charset = 'UTF-8'
-  }
+  },
+  -- React/JSX Support: ensure Emmet uses className and works in JS/TS files
+  javascript = {
+    extends = 'jsx',
+  },
+  typescript = {
+    extends = 'jsx',
+  },
 }
 
--- Note: The default trigger is <C-y>, (Ctrl+y then comma)
--- This works in INSERT mode for all HTML, CSS, and JSX/TSX files
-
--- Alternative keybinding: <C-e> for quick expansion (single key, no comma needed)
+-- Insert mode: Expand abbreviation
 vim.keymap.set('i', '<C-e>', '<plug>(emmet-expand-abbr)', {
   silent = true,
   desc = 'Emmet: Expand abbreviation'
+})
+
+-- Visual mode: Wrap selection with abbreviation
+-- Usage: Select text, press <C-e>, then type the abbreviation (e.g., div.container)
+vim.keymap.set('v', '<C-e>', '<plug>(emmet-expand-abbr)', {
+  silent = true,
+  desc = 'Emmet: Wrap with abbreviation'
 })

@@ -20,7 +20,7 @@ local plugins = {
   'nvim-lualine/lualine.nvim', -- Statusline plugin for enhanced UI
 
   -- Syntax and Language Support
-  'nvim-treesitter/nvim-treesitter', -- Better syntax highlighting and code understanding
+  { 'nvim-treesitter/nvim-treesitter', branch = 'main', lazy = false, build = ':TSUpdate' }, -- Better syntax highlighting and code understanding
   {
     'windwp/nvim-ts-autotag', -- Auto close and rename HTML tags
     dependencies = 'nvim-treesitter/nvim-treesitter',

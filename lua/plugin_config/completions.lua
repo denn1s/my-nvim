@@ -21,21 +21,8 @@ luasnip.config.setup({
 vim.keymap.set("n", "<leader>se", function() require("scissors").editSnippet() end)
 vim.keymap.set({ "n", "x" }, "<leader>sa", function() require("scissors").addNewSnippet() end)
 
-vim.keymap.set({"i", "s"}, "<C-n>", function ()
-	if luasnip.jumpable(1) then
-		luasnip.jump(1)
-	else
-		return "\t"
-	end
-end, {expr = true, noremap = true})
-
-vim.keymap.set({"i", "s"}, "<C-N>", function ()
-	if luasnip.jumpable(-1) then
-		luasnip.jump(-1)
-	else
-		return "\t"
-	end
-end, {expr = true, noremap = true})
+-- Snippet navigation (Ctrl+L for next, Ctrl+H for previous)
+-- Note: Configured in cmp.setup() mappings below
 
 -- Custom preprocessing for completion items to clean up CSS documentation
 local function preprocess_completion_item(entry)

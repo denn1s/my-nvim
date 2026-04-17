@@ -34,11 +34,15 @@ vim.keymap.set('v', '<C-Down>', '}', { noremap = true, desc = 'Move to next para
 vim.keymap.set('v', '<C-S-c>', '"+y', { desc = 'Copy to system clipboard' })
 vim.keymap.set('v', '<C-c>', '"+y', { desc = 'Copy to system clipboard' })
 
--- Move by words in normal and insert modes
+-- Move by words in normal mode
 vim.keymap.set('n', '<C-Left>', 'b', { desc = 'Move back one word' })
 vim.keymap.set('n', '<C-Right>', 'w', { desc = 'Move forward one word' })
-vim.keymap.set('i', '<C-Left>', '<C-o>b', { desc = 'Move back one word in insert mode' })
-vim.keymap.set('i', '<C-Right>', '<C-o>w', { desc = 'Move forward one word in insert mode' })
+
+-- Snippet navigation in insert mode (Ctrl+Left/Right)
+-- Note: Actual snippet jumping is handled by LuaSnip in completions.lua
+-- These are aliases that map to Ctrl+H/L which do the actual work
+vim.keymap.set('i', '<C-Left>', '<C-h>', { remap = true, desc = 'Previous snippet placeholder' })
+vim.keymap.set('i', '<C-Right>', '<C-l>', { remap = true, desc = 'Next snippet placeholder' })
 
 -- Navigate between buffers
 vim.keymap.set('n', '<A-Left>', ':bprevious<CR>', { desc = 'Go to previous buffer' })
